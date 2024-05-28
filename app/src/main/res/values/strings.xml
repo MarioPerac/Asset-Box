@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">AssetLedger</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="assets_card">Assets</string>
+    <string name="locations_card">Locations</string>
+    <string name="employees_card">Employees</string>
+    <string name="census_list_card">Census List</string>
+</resources>
