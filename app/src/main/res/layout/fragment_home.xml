@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,34 +16,41 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <GridLayout
+        android:layout_below="@+id/top_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/top_view"
         android:layout_marginTop="-80dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="@dimen/medium_margin"
+        android:layout_marginRight="@dimen/medium_margin"
+        android:rowCount="2"
         android:columnCount="2">
         <androidx.cardview.widget.CardView
             android:id="@+id/assetCard"
-            android:layout_width="150dp"
-            android:layout_height="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
-            android:layout_margin="12dp"
+            android:layout_margin="@dimen/small_margin"
             android:layout_row="0"
             android:layout_column="0"
-            android:foreground="?attr/selectableItemBackground"
-
-            app:layout_constraintEnd_toStartOf="@id/assetCard">
+            android:foreground="?attr/selectableItemBackground">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin"
+                >
+
 
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/assets_icon" />
 
@@ -61,22 +68,27 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/employeeCard"
-            android:layout_width="150dp"
-            android:layout_height="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
-            android:layout_margin="12dp"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:foreground="?attr/selectableItemBackground"
-            app:layout_constraintStart_toEndOf="@id/assetCard">
+            android:layout_margin="@dimen/small_margin"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:foreground="?attr/selectableItemBackground">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/assets_icon"
                     android:layout_gravity="center_horizontal"
                     />
@@ -94,23 +106,28 @@
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:id="@+id/locationCard"
-            android:layout_width="150dp"
-            android:layout_height="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
-            android:layout_margin="12dp"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:foreground="?attr/selectableItemBackground"
-            app:layout_constraintTop_toBottomOf="@id/assetCard">
+            android:layout_margin="@dimen/small_margin"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:foreground="?attr/selectableItemBackground">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/assets_icon"
                     android:layout_gravity="center_horizontal"
                     />
@@ -129,21 +146,27 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/censusListCard"
-            android:layout_width="150dp"
-            android:layout_height="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
             app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
-            android:layout_margin="12dp"
+            android:layout_margin="@dimen/small_margin"
             android:layout_row="1"
             android:layout_column="1"
             android:foreground="?attr/selectableItemBackground">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
                 <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/assets_icon"
                     android:layout_gravity="center_horizontal"
                     />
@@ -164,4 +187,4 @@
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
