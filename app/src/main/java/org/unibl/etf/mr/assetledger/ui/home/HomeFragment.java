@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,7 +43,7 @@ public class HomeFragment extends Fragment {
         assetCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Asset card", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_navigation_assets);
             }
         });
 
@@ -76,10 +77,6 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public void onAssetCardClick(View view){
-        Toast.makeText(getContext(), "Asset Card", Toast.LENGTH_SHORT).show();
     }
 
 }

@@ -32,6 +32,24 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        navView.setOnItemSelectedListener(item -> {
+             int id = item.getItemId();
+
+                if(id == R.id.navigation_home) {
+                    navController.navigate(R.id.navigation_home);
+                    return true;
+                }
+                else if(id == R.id.navigation_dashboard){
+                    navController.navigate(R.id.navigation_dashboard);
+                    return true;
+                }
+                else if(id == R.id.navigation_notifications){
+                    navController.navigate(R.id.navigation_notifications);
+                    return true;
+                }
+
+            return false;
+        });
     }
 
 }

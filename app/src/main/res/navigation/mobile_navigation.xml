@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="org.unibl.etf.mr.assetledger.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_assets"
+            app:destination="@id/navigation_assets" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
@@ -22,4 +26,18 @@
         android:name="org.unibl.etf.mr.assetledger.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_assets"
+        android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetsFragment"
+        android:label="@string/title_assets_list"
+        tools:layout="@layout/fragment_assets_list">
+        <action
+            android:id="@+id/action_navigation_assets_to_addAssetFragment"
+            app:destination="@id/addAssetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addAssetFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.assets.AddAssetFragment"
+        android:label="fragment_add_asset"
+        tools:layout="@layout/fragment_add_asset" />
 </navigation>
