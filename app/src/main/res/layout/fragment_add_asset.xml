@@ -40,45 +40,60 @@
         android:id="@+id/editTextName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:hint="@string/name" />
 
     <EditText
         android:id="@+id/editTextDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description" />
+        android:hint="@string/description" />
 
-    <EditText
-        android:id="@+id/editTextBarcode"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Barcode"
-        android:inputType="number" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editTextBarcode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/barcode"
+            android:layout_weight="1"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/buttonScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scan" />
+
+
+    </LinearLayout>
 
 
     <EditText
         android:id="@+id/editTextPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Price"
+        android:hint="@string/price"
         android:inputType="numberDecimal" />
 
     <EditText
         android:id="@+id/editTextEmployeeName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Employee Name" />
+        android:hint="@string/employee_name" />
 
     <EditText
         android:id="@+id/editTextLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Location" />
+        android:hint="@string/location" />
 
     <Button
-        android:id="@+id/buttonSubmit"
+        android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit" />
+        android:layout_gravity="center"
+        android:text="@string/add" />
 
 </LinearLayout>
