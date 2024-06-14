@@ -38,6 +38,10 @@
     <fragment
         android:id="@+id/addAssetFragment"
         android:name="org.unibl.etf.mr.assetledger.ui.assets.AddAssetFragment"
-        android:label="fragment_add_asset"
-        tools:layout="@layout/fragment_add_asset" />
+        android:label="Add asset"
+        tools:layout="@layout/fragment_add_asset">
+        <action
+            android:id="@+id/action_addAssetFragment_to_navigation_assets"
+            app:destination="@id/navigation_assets" />
+    </fragment>
 </navigation>

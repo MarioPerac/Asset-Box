@@ -4,8 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
+
 import org.unibl.etf.mr.assetledger.util.Constants;
 import org.unibl.etf.mr.assetledger.util.LocalDateTimeConverter;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -59,6 +61,7 @@ public class Asset implements Serializable {
         this.locationLongitude = locationLongitude;
         this.imagePath = imagePath;
     }
+
 
     public long getId() {
         return id;

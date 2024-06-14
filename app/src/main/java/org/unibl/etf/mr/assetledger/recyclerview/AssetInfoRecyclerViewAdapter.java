@@ -3,6 +3,7 @@ package org.unibl.etf.mr.assetledger.recyclerview;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ import java.util.List;
 public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfoRecyclerViewAdapter.ViewHolder> {
 
     private List<AssetInfo> assetsInfo;
+
     public interface OnAssetClickListener {
         void onAssetClick(AssetInfo assetInfo);
     }
+
     private OnAssetClickListener listener;
 
     public AssetInfoRecyclerViewAdapter(List<AssetInfo> assetsInfo, OnAssetClickListener listener) {
@@ -41,7 +44,7 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final AssetInfo assetInfo = assetsInfo.get(position);
         holder.assetName.setText(assetInfo.getName());
-//        holder.assetIcon.setImageResource(); // potrebno prikazati i sliku
+        holder.assetIcon.setImageURI(Uri.parse(assetInfo.getImagePath()));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         holder.assetCreationDateTime.setText(assetInfo.getCreationDate().format(formatter));
@@ -49,7 +52,8 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
         holder.assetEmployeeName.setText(assetInfo.getEmployeeName());
         holder.assetLocation.setText(assetInfo.getLocation());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
                 listener.onAssetClick(assetInfo);
             }
         });
