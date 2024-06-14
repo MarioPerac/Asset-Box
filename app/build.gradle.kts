@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
 
 android {
@@ -43,6 +44,8 @@ dependencies {
     implementation(libs.gridlayout)
     implementation(libs.legacy.support.v4)
     implementation(libs.recyclerview)
+    implementation(libs.camera.core)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -51,4 +54,6 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:2.6.1")
 
     implementation("com.github.dhaval2404:imagepicker:2.1")
+
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 }
