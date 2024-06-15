@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_assets"
             app:destination="@id/navigation_assets" />
+        <action
+            android:id="@+id/action_navigation_home_to_locationsFragment"
+            app:destination="@id/locationsFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_employeesFragment"
+            app:destination="@id/employeesFragment" />
     </fragment>
 
     <fragment
@@ -52,5 +58,22 @@
         android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetDetailsFragment"
         android:label="Asset Details">
 
+    </fragment>
+    <fragment
+        android:id="@+id/locationsFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.location.LocationsFragment"
+        android:label="Locations">
+        <action
+            android:id="@+id/action_locationsFragment_to_navigation_assets"
+            app:destination="@id/navigation_assets" />
+    </fragment>
+    <fragment
+        android:id="@+id/employeesFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.employees.EmployeesFragment"
+        android:label="Employees"
+        tools:layout="@layout/fragment_employees">
+        <action
+            android:id="@+id/action_employeesFragment_to_navigation_assets"
+            app:destination="@id/navigation_assets" />
     </fragment>
 </navigation>

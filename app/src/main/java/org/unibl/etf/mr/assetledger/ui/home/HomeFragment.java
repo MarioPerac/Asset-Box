@@ -47,19 +47,9 @@ public class HomeFragment extends Fragment {
 
         assetCard.setOnClickListener(this::onAssetCardClick);
 
-        employeeCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Employees card", Toast.LENGTH_SHORT).show();
-            }
-        });
+        employeeCard.setOnClickListener(this::onEmployeeCardClick);
 
-        locationCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle click
-            }
-        });
+        locationCard.setOnClickListener(this::onLocationCardClick);
 
         censusListCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +87,52 @@ public class HomeFragment extends Fragment {
                         else
                             bundle.putSerializable("assets", (Serializable) assetInfos);
                         Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_assets, bundle);
+                    }
+                });
+            }
+        });
+    }
+
+    public void onLocationCardClick(View view) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<AssetInfo> assetInfos = AssetDatabase.getInstance(getContext()).getAssetDAO().getAllAssetInfo();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bundle bundle = new Bundle();
+
+                        if (assetInfos == null || assetInfos.isEmpty())
+                            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
+                        else
+                            bundle.putSerializable("assets", (Serializable) assetInfos);
+                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_locationsFragment, bundle);
+                    }
+                });
+            }
+        });
+    }
+
+    public void onEmployeeCardClick(View view) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<AssetInfo> assetInfos = AssetDatabase.getInstance(getContext()).getAssetDAO().getAllAssetInfo();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bundle bundle = new Bundle();
+
+                        if (assetInfos == null || assetInfos.isEmpty())
+                            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
+                        else
+                            bundle.putSerializable("assets", (Serializable) assetInfos);
+                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_employeesFragment, bundle);
                     }
                 });
             }
