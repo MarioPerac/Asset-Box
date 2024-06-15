@@ -1,10 +1,7 @@
 package org.unibl.etf.mr.assetledger.ui.assets;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -18,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,29 +33,24 @@ import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetledger.model.Asset;
-import org.unibl.etf.mr.assetledger.model.AssetInfo;
 import org.unibl.etf.mr.assetledger.model.AssetInfos;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.widget.Toast;
+public class EditAssetFragment extends Fragment {
 
-
-public class AddAssetFragment extends Fragment {
+    View root;
+    Asset asset;
+    AssetInfos assetInfos;
 
     ImageView assetImage;
 
-    Button buttonAdd;
+    Button buttonSave;
 
     AssetDAO assetDAO;
     Button buttonScan;
@@ -66,7 +58,7 @@ public class AddAssetFragment extends Fragment {
     EditText editTextName;
     EditText editTextDescription;
 
-    EditText editTextEeployeeName;
+    EditText editTextEmployeeName;
 
     EditText editTextBarcode;
     EditText editTextPrice;
@@ -84,62 +76,87 @@ public class AddAssetFragment extends Fragment {
                 }
             });
 
-    public AddAssetFragment() {
+    public EditAssetFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
+        if (getArguments() != null) {
+            asset = (Asset) getArguments().getSerializable("asset");
+            assetInfos = AssetInfos.getInstance();
+            assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
 
-        startForProfileImageResult = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        int resultCode = result.getResultCode();
-                        Intent data = result.getData();
+            startForProfileImageResult = registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    new ActivityResultCallback<ActivityResult>() {
+                        @Override
+                        public void onActivityResult(ActivityResult result) {
+                            int resultCode = result.getResultCode();
+                            Intent data = result.getData();
 
-                        if (resultCode == Activity.RESULT_OK) {
-                            if (data != null && data.getData() != null) {
-                                Uri fileUri = data.getData();
-                                assetPhotoUri = fileUri.toString();
-                                assetImage.setImageURI(fileUri);
-                                Log.d("tag", fileUri.toString());
+                            if (resultCode == Activity.RESULT_OK) {
+                                if (data != null && data.getData() != null) {
+                                    Uri fileUri = data.getData();
+                                    assetPhotoUri = fileUri.toString();
+                                    assetImage.setImageURI(fileUri);
+                                    Log.d("tag", fileUri.toString());
+                                }
+                            } else if (resultCode == ImagePicker.RESULT_ERROR) {
+                                Toast.makeText(getActivity(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Task Cancelled", Toast.LENGTH_SHORT).show();
                             }
-                        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-                            Toast.makeText(getActivity(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), "Task Cancelled", Toast.LENGTH_SHORT).show();
                         }
                     }
-                }
-        );
-
+            );
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_add_asset, container, false);
+        root = inflater.inflate(R.layout.fragment_edit_asset, container, false);
 
 
         assetImage = root.findViewById(R.id.imageViewAddAsset);
         FloatingActionButton addImage = root.findViewById(R.id.addAssetImageButton);
 
-        buttonAdd = root.findViewById(R.id.buttonAdd);
+        buttonSave = root.findViewById(R.id.buttonSave);
         buttonScan = root.findViewById(R.id.buttonScan);
         editTextName = root.findViewById(R.id.editTextName);
         editTextDescription = root.findViewById(R.id.editTextDescription);
-        editTextEeployeeName = root.findViewById(R.id.editTextEmployeeName);
+        editTextEmployeeName = root.findViewById(R.id.editTextEmployeeName);
         editTextBarcode = root.findViewById(R.id.editTextBarcode);
         editTextPrice = root.findViewById(R.id.editTextPrice);
         editTextLocation = root.findViewById(R.id.editTextLocation);
 
-        buttonScan.setOnClickListener(this::onScanButtonClick);
-        buttonAdd.setOnClickListener(this::onAddButtonClick);
+        editTextName.setText(asset.getName());
+        editTextDescription.setText(asset.getDescription());
+        editTextEmployeeName.setText(asset.getEmployeeName());
+        editTextBarcode.setText(String.valueOf(asset.getBarcode()));
+        editTextPrice.setText(String.valueOf(asset.getPrice()));
+        editTextLocation.setText(asset.getLocation());
+        assetImage.setImageURI(Uri.parse(asset.getImagePath()));
+        assetPhotoUri = asset.getImagePath();
+
+
+        buttonScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onScanButtonClick(v);
+            }
+        });
+
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSaveButtonClick(v);
+            }
+        });
+
         addImage.setOnClickListener(new View.OnClickListener() {
 
 
@@ -167,41 +184,61 @@ public class AddAssetFragment extends Fragment {
     }
 
 
-    public void onAddButtonClick(View view) {
-
+    public void onSaveButtonClick(View view) {
         String name = editTextName.getText().toString();
         String description = editTextDescription.getText().toString();
         long barcode = Long.parseLong(editTextBarcode.getText().toString());
         double price = Double.parseDouble(editTextPrice.getText().toString());
-        String employeeName = editTextEeployeeName.getText().toString();
+        String employeeName = editTextEmployeeName.getText().toString();
         String location = editTextLocation.getText().toString();
 
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        Address address;
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(location, 1);
-            address = addresses.get(0);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+        if (!asset.getName().equals(name))
+            asset.setName(name);
+        if (!asset.getDescription().equals(description)) {
+            asset.setDescription(description);
+        }
+        if (asset.getBarcode() != barcode) {
+            asset.setBarcode(barcode);
+        }
+        if (asset.getPrice() != price) {
+            asset.setPrice(price);
+        }
+        if (!asset.getEmployeeName().equals(employeeName)) {
+            asset.setEmployeeName(employeeName);
+        }
+        if (!asset.getLocation().equals(location)) {
+            asset.setLocation(location);
+            Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
+            Address address;
+            try {
+                List<Address> addresses = geocoder.getFromLocationName(location, 1);
+                address = addresses.get(0);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            asset.setLocationLatitude(address.getLatitude());
+            asset.setLocationLongitude(address.getLongitude());
+        }
+        if (!asset.getImagePath().equals(assetPhotoUri)) {
+            asset.setImagePath(assetPhotoUri);
         }
 
-        Asset asset = new Asset(0, name, description, barcode, price, LocalDateTime.now(), employeeName, location, address.getLatitude(), address.getLongitude(), assetPhotoUri);
 
-        List<AssetInfo> assetInfos = AssetInfos.getInstance().getAll();
-        assetInfos.add(AssetInfos.createAssetInfo(asset));
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("assets", (Serializable) assetInfos);
-        Navigation.findNavController(view).navigateUp();
-
+        assetInfos.updateAssetInfo(AssetInfos.createAssetInfo(asset));
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                assetDAO.insert(asset);
-
+                assetDAO.update(asset);
             }
         });
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("asset", asset);
+        Navigation.findNavController(view).navigateUp();
     }
 
     public void onScanButtonClick(View view) {
@@ -211,6 +248,5 @@ public class AddAssetFragment extends Fragment {
         options.setBeepEnabled(false);
         barcodeLauncher.launch(options);
     }
-
 
 }

@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_home_to_employeesFragment"
             app:destination="@id/employeesFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_addAssetFragment"
+            app:destination="@id/addAssetFragment" />
     </fragment>
 
     <fragment
@@ -37,9 +40,7 @@
         android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetsFragment"
         android:label="@string/title_assets_list"
         tools:layout="@layout/fragment_assets_list">
-        <action
-            android:id="@+id/action_navigation_assets_to_addAssetFragment"
-            app:destination="@id/addAssetFragment" />
+
         <action
             android:id="@+id/action_navigation_assets_to_assetDetailsFragment"
             app:destination="@id/assetDetailsFragment" />
@@ -48,16 +49,15 @@
         android:id="@+id/addAssetFragment"
         android:name="org.unibl.etf.mr.assetledger.ui.assets.AddAssetFragment"
         android:label="Add asset"
-        tools:layout="@layout/fragment_add_asset">
-        <action
-            android:id="@+id/action_addAssetFragment_to_navigation_assets"
-            app:destination="@id/navigation_assets" />
-    </fragment>
+        tools:layout="@layout/fragment_add_asset"></fragment>
     <fragment
         android:id="@+id/assetDetailsFragment"
         android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetDetailsFragment"
         android:label="Asset Details">
 
+        <action
+            android:id="@+id/action_assetDetailsFragment_to_editAssetFragment"
+            app:destination="@id/editAssetFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationsFragment"
@@ -76,4 +76,9 @@
             android:id="@+id/action_employeesFragment_to_navigation_assets"
             app:destination="@id/navigation_assets" />
     </fragment>
+    <fragment
+        android:id="@+id/editAssetFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.assets.EditAssetFragment"
+        android:label="Edit Asset"
+        tools:layout="@layout/fragment_edit_asset"></fragment>
 </navigation>

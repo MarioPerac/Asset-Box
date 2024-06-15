@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,6 +24,7 @@
         android:layout_marginRight="@dimen/medium_margin"
         android:rowCount="2"
         android:columnCount="2">
+
         <androidx.cardview.widget.CardView
             android:id="@+id/assetCard"
             android:layout_width="wrap_content"
@@ -44,8 +45,7 @@
                 android:gravity="center"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
-                android:layout_margin="@dimen/small_margin"
-                >
+                android:layout_margin="@dimen/small_margin">
 
 
                 <ImageView
@@ -79,6 +79,7 @@
             android:layout_row="1"
             android:layout_column="0"
             android:foreground="?attr/selectableItemBackground">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,12 +87,13 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/small_margin">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/assets_icon"
-                    android:layout_gravity="center_horizontal"
-                    />
+                    android:layout_gravity="center_horizontal" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,11 +101,11 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_gravity="center_horizontal"
-                    />
+                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/locationCard"
             android:layout_width="wrap_content"
@@ -125,12 +127,13 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/small_margin">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/assets_icon"
-                    android:layout_gravity="center_horizontal"
-                    />
+                    android:layout_gravity="center_horizontal" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -138,8 +141,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_gravity="center_horizontal"
-                    />
+                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -157,6 +159,7 @@
             android:layout_row="1"
             android:layout_column="1"
             android:foreground="?attr/selectableItemBackground">
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -164,12 +167,13 @@
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:orientation="vertical"
                 android:layout_margin="@dimen/small_margin">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/assets_icon"
-                    android:layout_gravity="center_horizontal"
-                    />
+                    android:layout_gravity="center_horizontal" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -177,14 +181,23 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:layout_gravity="center_horizontal"
-                    />
+                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </GridLayout>
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addAssetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:contentDescription="@string/add_asset"
+        android:layout_marginBottom="30pt"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

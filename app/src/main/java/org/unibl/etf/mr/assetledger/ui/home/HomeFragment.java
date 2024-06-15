@@ -4,34 +4,38 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.unibl.etf.mr.assetledger.R;
-import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.databinding.FragmentHomeBinding;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
-import org.unibl.etf.mr.assetledger.model.Category;
-import org.unibl.etf.mr.assetledger.recyclerview.CategoryAdapter;
+import org.unibl.etf.mr.assetledger.model.AssetInfos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+
+    private AssetInfos assetInfos;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        assetInfos = AssetInfos.getInstance();
+        assetInfos.loadAssetInfoList(getContext());
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -44,6 +48,8 @@ public class HomeFragment extends Fragment {
         CardView employeeCard = root.findViewById(R.id.employeeCard);
         CardView locationCard = root.findViewById(R.id.locationCard);
         CardView censusListCard = root.findViewById(R.id.censusListCard);
+        FloatingActionButton addAssetButton = root.findViewById(R.id.addAssetButton);
+        addAssetButton.setOnClickListener(this::onAddAssetClick);
 
         assetCard.setOnClickListener(this::onAssetCardClick);
 
@@ -58,8 +64,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         return root;
     }
 
@@ -71,71 +76,44 @@ public class HomeFragment extends Fragment {
 
 
     private void onAssetCardClick(View view) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                List<AssetInfo> assetInfos = AssetDatabase.getInstance(getContext()).getAssetDAO().getAllAssetInfo();
+        List<AssetInfo> assetInfoList = assetInfos.getAll();
+        Bundle bundle = new Bundle();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Bundle bundle = new Bundle();
+        if (assetInfoList == null || assetInfoList.isEmpty())
+            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
+        else
+            bundle.putSerializable("assets", (Serializable) assetInfoList);
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_assets, bundle);
 
-                        if (assetInfos == null || assetInfos.isEmpty())
-                            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
-                        else
-                            bundle.putSerializable("assets", (Serializable) assetInfos);
-                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_assets, bundle);
-                    }
-                });
-            }
-        });
     }
 
     public void onLocationCardClick(View view) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                List<AssetInfo> assetInfos = AssetDatabase.getInstance(getContext()).getAssetDAO().getAllAssetInfo();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Bundle bundle = new Bundle();
+        List<AssetInfo> assetInfoList = assetInfos.getAll();
 
-                        if (assetInfos == null || assetInfos.isEmpty())
-                            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
-                        else
-                            bundle.putSerializable("assets", (Serializable) assetInfos);
-                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_locationsFragment, bundle);
-                    }
-                });
-            }
-        });
+        Bundle bundle = new Bundle();
+
+        if (assetInfoList == null || assetInfoList.isEmpty())
+            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
+        else
+            bundle.putSerializable("assets", (Serializable) assetInfoList);
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_locationsFragment, bundle);
+
     }
 
     public void onEmployeeCardClick(View view) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                List<AssetInfo> assetInfos = AssetDatabase.getInstance(getContext()).getAssetDAO().getAllAssetInfo();
+        List<AssetInfo> assetInfoList = assetInfos.getAll();
+        Bundle bundle = new Bundle();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Bundle bundle = new Bundle();
+        if (assetInfoList == null || assetInfoList.isEmpty())
+            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
+        else
+            bundle.putSerializable("assets", (Serializable) assetInfoList);
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_employeesFragment, bundle);
 
-                        if (assetInfos == null || assetInfos.isEmpty())
-                            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
-                        else
-                            bundle.putSerializable("assets", (Serializable) assetInfos);
-                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_employeesFragment, bundle);
-                    }
-                });
-            }
-        });
+    }
+
+    private void onAddAssetClick(View view) {
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_addAssetFragment);
     }
 }

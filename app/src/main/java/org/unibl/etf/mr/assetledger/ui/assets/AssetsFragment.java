@@ -98,9 +98,6 @@ public class AssetsFragment extends Fragment {
             }
         });
 
-        FloatingActionButton addAssetButton = view.findViewById(R.id.addAssetButton);
-        addAssetButton.setOnClickListener(this::onAddAssetClick);
-
         TextView emptyListMessage = view.findViewById(R.id.emptyListMessage);
         if (filteredAssetInfoList.isEmpty()) {
             emptyListMessage.setVisibility(View.VISIBLE);
@@ -111,9 +108,6 @@ public class AssetsFragment extends Fragment {
         return view;
     }
 
-    private void onAddAssetClick(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_navigation_assets_to_addAssetFragment);
-    }
 
     private void onAssetClick(View view, AssetInfo assetInfo) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -142,4 +136,5 @@ public class AssetsFragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
     }
+
 }

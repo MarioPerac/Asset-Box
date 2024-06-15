@@ -20,6 +20,9 @@
     <string name="price">Price</string>
     <string name="description">Description</string>
     <string name="name">Name</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="save">save</string>
 
     <string-array name="search_categories">
         <item>Name</item>

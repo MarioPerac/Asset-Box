@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,15 +21,17 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
 
     private List<AssetInfo> assetsInfo;
 
+    private OnAssetClickListener listener;
+
     public interface OnAssetClickListener {
         void onAssetClick(View view, AssetInfo assetInfo);
     }
 
-    private OnAssetClickListener listener;
 
     public AssetInfoRecyclerViewAdapter(List<AssetInfo> assetsInfo, OnAssetClickListener listener) {
         this.assetsInfo = assetsInfo;
         this.listener = listener;
+        ;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
         holder.assetName.setText(assetInfo.getName());
         holder.assetIcon.setImageURI(Uri.parse(assetInfo.getImagePath()));
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         holder.assetCreationDateTime.setText(assetInfo.getCreationDate().format(formatter));
 
         holder.assetEmployeeName.setText(assetInfo.getEmployeeName());
@@ -57,6 +60,8 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
                 listener.onAssetClick(v, assetInfo);
             }
         });
+
+
     }
 
     @Override

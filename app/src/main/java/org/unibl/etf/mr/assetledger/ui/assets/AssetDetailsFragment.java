@@ -3,18 +3,24 @@ package org.unibl.etf.mr.assetledger.ui.assets;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.unibl.etf.mr.assetledger.R;
+import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
+import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetledger.model.Asset;
+import org.unibl.etf.mr.assetledger.model.AssetInfos;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class AssetDetailsFragment extends Fragment {
@@ -35,6 +41,12 @@ public class AssetDetailsFragment extends Fragment {
 
     TextView barcode;
 
+    Button buttonEdit, buttonDelete;
+
+    AssetInfos assetInfos;
+
+    AssetDAO assetDAO;
+
     public AssetDetailsFragment() {
         // Required empty public constructor
     }
@@ -45,9 +57,9 @@ public class AssetDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             asset = (Asset) getArguments().getSerializable("asset");
+            assetInfos = AssetInfos.getInstance();
+            assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
         }
-
-
     }
 
     @Override
@@ -65,6 +77,8 @@ public class AssetDetailsFragment extends Fragment {
         location = root.findViewById(R.id.textViewLocation);
         employeeName = root.findViewById(R.id.textViewEmployeeName);
         barcode = root.findViewById(R.id.textViewBarcode);
+        buttonEdit = root.findViewById(R.id.buttonEdit);
+        buttonDelete = root.findViewById(R.id.buttonDelete);
 
 
         image.setImageURI(Uri.parse(asset.getImagePath()));
@@ -74,8 +88,33 @@ public class AssetDetailsFragment extends Fragment {
         price.setText(String.valueOf(asset.getPrice()));
         location.setText(asset.getLocation());
         employeeName.setText(asset.getEmployeeName());
-        
+
+
+        buttonEdit.setOnClickListener(this::onEditClick);
+        buttonDelete.setOnClickListener(this::onDeleteClick);
 
         return root;
+    }
+
+    private void onEditClick(View view) {
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("asset", asset);
+        Navigation.findNavController(view).navigate(R.id.action_assetDetailsFragment_to_editAssetFragment, bundle);
+    }
+
+    private void onDeleteClick(View view) {
+
+        assetInfos.deleteAssetInfo(asset.getId());
+
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                assetDAO.delete(asset);
+            }
+        });
+
+        Navigation.findNavController(root).navigateUp();
     }
 }

@@ -27,6 +27,9 @@ public class AssetInfo implements Serializable {
     @ColumnInfo(name = "location")
     private String location;
 
+    public AssetInfo() {
+    }
+
     public AssetInfo(long id, String imagePath, String name, LocalDateTime creationDate, String employeeName, String location) {
         this.id = id;
         this.imagePath = imagePath;
