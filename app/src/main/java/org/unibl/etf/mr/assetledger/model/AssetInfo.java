@@ -5,9 +5,10 @@ import androidx.room.TypeConverters;
 
 import org.unibl.etf.mr.assetledger.util.LocalDateTimeConverter;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class AssetInfo {
+public class AssetInfo implements Serializable {
 
 
     @ColumnInfo(name = "id")

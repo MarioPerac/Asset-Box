@@ -17,12 +17,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.unibl.etf.mr.assetledger.R;
+import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.databinding.FragmentHomeBinding;
+import org.unibl.etf.mr.assetledger.model.AssetInfo;
 import org.unibl.etf.mr.assetledger.model.Category;
 import org.unibl.etf.mr.assetledger.recyclerview.CategoryAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment {
 
@@ -40,12 +45,7 @@ public class HomeFragment extends Fragment {
         CardView locationCard = root.findViewById(R.id.locationCard);
         CardView censusListCard = root.findViewById(R.id.censusListCard);
 
-        assetCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(root).navigate(R.id.action_navigation_home_to_navigation_assets);
-            }
-        });
+        assetCard.setOnClickListener(this::onAssetCardClick);
 
         employeeCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,4 +79,27 @@ public class HomeFragment extends Fragment {
         binding = null;
     }
 
+
+    private void onAssetCardClick(View view) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                List<AssetInfo> assetInfos = AssetDatabase.getInstance(getContext()).getAssetDAO().getAllAssetInfo();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bundle bundle = new Bundle();
+
+                        if (assetInfos == null || assetInfos.isEmpty())
+                            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
+                        else
+                            bundle.putSerializable("assets", (Serializable) assetInfos);
+                        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_assets, bundle);
+                    }
+                });
+            }
+        });
+    }
 }

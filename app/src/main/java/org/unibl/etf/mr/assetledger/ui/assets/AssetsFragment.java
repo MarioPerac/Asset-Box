@@ -30,9 +30,6 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * A fragment representing a list of Items.
- */
 public class AssetsFragment extends Fragment {
 
 
@@ -54,8 +51,10 @@ public class AssetsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
-        assetInfoList = new ArrayList<>();
-        loadAssetInfoList();
+        if (getArguments() != null) {
+            assetInfoList = (List<AssetInfo>) getArguments().getSerializable("assets");
+        }
+
     }
 
     @Override
@@ -71,38 +70,14 @@ public class AssetsFragment extends Fragment {
 
         emptyListMessage = view.findViewById(R.id.emptyListMessage);
         FloatingActionButton addAssetButton = view.findViewById(R.id.addAssetButton);
-        addAssetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.action_navigation_assets_to_addAssetFragment);
-            }
-        });
+        addAssetButton.setOnClickListener(this::onAddAssetClick);
+
+        if (assetInfoList.isEmpty()) {
+            emptyListMessage.setVisibility(View.VISIBLE);
+        } else {
+            emptyListMessage.setVisibility(View.GONE);
+        }
         return view;
-    }
-
-    private void loadAssetInfoList() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                List<AssetInfo> assetInfos = assetDAO.getAllAssetInfo();
-                if (assetInfos != null) {
-                    assetInfoList.clear();
-                    assetInfoList.addAll(assetInfos);
-                }
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (assetInfoList.isEmpty()) {
-                            emptyListMessage.setVisibility(View.VISIBLE);
-                        } else {
-                            emptyListMessage.setVisibility(View.GONE);
-                        }
-                    }
-                });
-            }
-        });
     }
 
 
