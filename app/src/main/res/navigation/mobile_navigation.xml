@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_navigation_assets_to_addAssetFragment"
             app:destination="@id/addAssetFragment" />
+        <action
+            android:id="@+id/action_navigation_assets_to_assetDetailsFragment"
+            app:destination="@id/assetDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/addAssetFragment"
@@ -43,5 +46,11 @@
         <action
             android:id="@+id/action_addAssetFragment_to_navigation_assets"
             app:destination="@id/navigation_assets" />
+    </fragment>
+    <fragment
+        android:id="@+id/assetDetailsFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetDetailsFragment"
+        android:label="Asset Details">
+
     </fragment>
 </navigation>

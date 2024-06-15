@@ -35,4 +35,7 @@ public interface AssetDAO {
 
     @Query("SELECT id, image_path, name, creation_date, employee_name, location FROM " + Constants.TABLE_NAME_ASSETS)
     List<AssetInfo> getAllAssetInfo();
+
+    @Query("SELECT * FROM " + Constants.TABLE_NAME_ASSETS + " WHERE id = :id")
+    Asset getById(long id);
 }

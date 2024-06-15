@@ -21,7 +21,7 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
     private List<AssetInfo> assetsInfo;
 
     public interface OnAssetClickListener {
-        void onAssetClick(AssetInfo assetInfo);
+        void onAssetClick(View view, AssetInfo assetInfo);
     }
 
     private OnAssetClickListener listener;
@@ -54,7 +54,7 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onAssetClick(assetInfo);
+                listener.onAssetClick(v, assetInfo);
             }
         });
     }

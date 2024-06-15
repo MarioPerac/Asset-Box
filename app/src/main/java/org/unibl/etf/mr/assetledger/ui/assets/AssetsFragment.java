@@ -55,6 +55,7 @@ public class AssetsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
         assetInfoList = new ArrayList<>();
+        loadAssetInfoList();
     }
 
     @Override
@@ -66,13 +67,7 @@ public class AssetsFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.assets_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        recyclerView.setAdapter(new AssetInfoRecyclerViewAdapter(assetInfoList, new AssetInfoRecyclerViewAdapter.OnAssetClickListener() {
-            @Override
-            public void onAssetClick(AssetInfo assetInfo) {
-                //change....
-                Toast.makeText(context, assetInfo.getName(), Toast.LENGTH_SHORT).show();
-            }
-        }));
+        recyclerView.setAdapter(new AssetInfoRecyclerViewAdapter(assetInfoList, this::onAssetClick));
 
         emptyListMessage = view.findViewById(R.id.emptyListMessage);
         FloatingActionButton addAssetButton = view.findViewById(R.id.addAssetButton);
@@ -82,7 +77,6 @@ public class AssetsFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_navigation_assets_to_addAssetFragment);
             }
         });
-        loadAssetInfoList();
         return view;
     }
 
@@ -114,6 +108,27 @@ public class AssetsFragment extends Fragment {
 
     public void onAddAssetClick(View view) {
         Navigation.findNavController(view).navigate(R.id.action_navigation_assets_to_addAssetFragment);
+    }
+
+    public void onAssetClick(View view, AssetInfo assetInfo) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                Asset asset = assetDAO.getById(assetInfo.getId());
+
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("asset", asset);
+                        Navigation.findNavController(view).navigate(R.id.action_navigation_assets_to_assetDetailsFragment, bundle);
+                    }
+                });
+            }
+        });
+
     }
 }
 
