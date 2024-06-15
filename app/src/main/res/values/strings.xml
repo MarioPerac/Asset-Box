@@ -20,4 +20,9 @@
     <string name="price">Price</string>
     <string name="description">Description</string>
     <string name="name">Name</string>
+
+    <string-array name="search_categories">
+        <item>Name</item>
+        <item>Location</item>
+    </string-array>
 </resources>
