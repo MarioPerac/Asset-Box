@@ -3,8 +3,10 @@ package org.unibl.etf.mr.assetledger.ui.location;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.unibl.etf.mr.assetledger.R;
+import org.unibl.etf.mr.assetledger.model.AssetInfos;
 import org.unibl.etf.mr.assetledger.model.MapLocation;
+
+import java.io.Serializable;
+import java.util.stream.Collectors;
 
 public class MapsFragment extends Fragment {
 
@@ -27,18 +33,23 @@ public class MapsFragment extends Fragment {
     MapLocation location;
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
-        
+
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in " + location.getName()));
+            Log.d("Location", location.getName());
+            LatLng city = new LatLng(location.getLatitude(), location.getLongitude());
+            googleMap.addMarker(new MarkerOptions().position(city).title("Marker in " + location.getName()));
 
             googleMap.setOnMarkerClickListener(this::onMarkerClick);
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(city, 10));
+            googleMap.getUiSettings().setZoomControlsEnabled(true);
+
         }
 
         public boolean onMarkerClick(Marker marker) {
-            //to do: implement
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("assets", (Serializable) AssetInfos.getInstance().getAll().stream().filter(a -> a.getLocation().equals(location.getName())).collect(Collectors.toList()));
+            Navigation.findNavController(root).navigate(R.id.action_mapsFragment_to_navigation_assets, bundle);
             return true;
         }
     };

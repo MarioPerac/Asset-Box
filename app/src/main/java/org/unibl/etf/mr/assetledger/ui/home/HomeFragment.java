@@ -1,6 +1,7 @@
 package org.unibl.etf.mr.assetledger.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,9 @@ public class HomeFragment extends Fragment {
 
 
     private void onAssetCardClick(View view) {
+        for (AssetInfo a : assetInfos.getAll()) {
+            Log.d("asset", a.getImagePath());
+        }
         Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_assets);
     }
 

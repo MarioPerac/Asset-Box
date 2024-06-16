@@ -5,6 +5,7 @@ import android.content.Context;
 import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,6 +42,8 @@ public class AssetInfos {
             public void run() {
                 assetDAO = AssetDatabase.getInstance(context).getAssetDAO();
                 assetInfoList = assetDAO.getAllAssetInfo();
+                if (assetInfoList == null)
+                    assetInfoList = new ArrayList<>();
             }
         });
     }

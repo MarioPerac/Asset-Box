@@ -41,7 +41,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/fragment_asset" />
+        tools:listitem="@layout/asset" />
 
 
     <TextView

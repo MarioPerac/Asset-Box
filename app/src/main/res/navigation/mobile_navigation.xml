@@ -88,5 +88,9 @@
         android:id="@+id/mapsFragment"
         android:name="org.unibl.etf.mr.assetledger.ui.location.MapsFragment"
         android:label="Map"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_mapsFragment_to_navigation_assets"
+            app:destination="@id/navigation_assets" />
+    </fragment>
 </navigation>

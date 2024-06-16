@@ -2,6 +2,7 @@ package org.unibl.etf.mr.assetledger.ui.assets;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,6 +120,7 @@ public class AssetsFragment extends Fragment {
             Asset asset = assetDAO.getById(assetInfo.getId());
             getActivity().runOnUiThread(() -> {
                 Bundle bundle = new Bundle();
+
                 bundle.putSerializable("asset", asset);
                 Navigation.findNavController(view).navigate(R.id.action_navigation_assets_to_assetDetailsFragment, bundle);
             });

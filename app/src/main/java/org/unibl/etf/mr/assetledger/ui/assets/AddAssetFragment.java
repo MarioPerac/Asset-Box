@@ -169,6 +169,7 @@ public class AddAssetFragment extends Fragment {
 
     public void onAddButtonClick(View view) {
 
+
         String name = editTextName.getText().toString();
         String description = editTextDescription.getText().toString();
         long barcode = Long.parseLong(editTextBarcode.getText().toString());
@@ -186,22 +187,22 @@ public class AddAssetFragment extends Fragment {
         }
 
         Asset asset = new Asset(0, name, description, barcode, price, LocalDateTime.now(), employeeName, location, address.getLatitude(), address.getLongitude(), assetPhotoUri);
-
-        List<AssetInfo> assetInfos = AssetInfos.getInstance().getAll();
-        assetInfos.add(AssetInfos.createAssetInfo(asset));
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("assets", (Serializable) assetInfos);
-        Navigation.findNavController(view).navigateUp();
-
-
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                assetDAO.insert(asset);
+                long id = assetDAO.insert(asset);
+                asset.setId(id);
+                List<AssetInfo> assetInfos = AssetInfos.getInstance().getAll();
+                assetInfos.add(AssetInfos.createAssetInfo(asset));
+                getActivity().runOnUiThread(() -> {
+                    Navigation.findNavController(view).navigateUp();
+                });
 
             }
         });
+
+
     }
 
     public void onScanButtonClick(View view) {
@@ -211,6 +212,4 @@ public class AddAssetFragment extends Fragment {
         options.setBeepEnabled(false);
         barcodeLauncher.launch(options);
     }
-
-
 }
