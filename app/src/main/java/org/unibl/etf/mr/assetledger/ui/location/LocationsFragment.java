@@ -16,8 +16,7 @@ import android.widget.TextView;
 import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
 import org.unibl.etf.mr.assetledger.model.AssetInfos;
-import org.unibl.etf.mr.assetledger.recyclerview.AssetInfoRecyclerViewAdapter;
-import org.unibl.etf.mr.assetledger.recyclerview.LocationsRecyclerViewAdapter;
+import org.unibl.etf.mr.assetledger.recyclerview.StringListRecyclerViewAdapter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -55,7 +54,7 @@ public class LocationsFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.locations_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        recyclerView.setAdapter(new LocationsRecyclerViewAdapter(assetInfoList.stream().map(AssetInfo::getLocation).distinct().collect(Collectors.toList()), this::onLocationClick));
+        recyclerView.setAdapter(new StringListRecyclerViewAdapter(assetInfoList.stream().map(AssetInfo::getLocation).distinct().collect(Collectors.toList()), this::onLocationClick));
 
         emptyListMessage = root.findViewById(R.id.emptyListMessage);
         if (assetInfoList.isEmpty()) {

@@ -8,7 +8,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,7 @@ import android.widget.TextView;
 import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
 import org.unibl.etf.mr.assetledger.model.AssetInfos;
-import org.unibl.etf.mr.assetledger.recyclerview.EmployeesRecyclerViewAdapter;
-import org.unibl.etf.mr.assetledger.recyclerview.LocationsRecyclerViewAdapter;
+import org.unibl.etf.mr.assetledger.recyclerview.StringListRecyclerViewAdapter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -56,7 +54,7 @@ public class EmployeesFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.employees_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        recyclerView.setAdapter(new EmployeesRecyclerViewAdapter(assetInfoList.stream().map(AssetInfo::getEmployeeName).distinct().collect(Collectors.toList()), this::onEmployeeClick));
+        recyclerView.setAdapter(new StringListRecyclerViewAdapter(assetInfoList.stream().map(AssetInfo::getEmployeeName).distinct().collect(Collectors.toList()), this::onEmployeeClick));
 
         emptyListMessage = root.findViewById(R.id.emptyListMessage);
         if (assetInfoList.isEmpty()) {
