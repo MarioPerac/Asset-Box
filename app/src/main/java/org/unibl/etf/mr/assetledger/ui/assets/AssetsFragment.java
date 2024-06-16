@@ -37,7 +37,7 @@ import java.util.concurrent.Executors;
 public class AssetsFragment extends Fragment {
 
     private List<AssetInfo> assetInfoList;
-    private List<AssetInfo> filteredAssetInfoList;
+    private List<AssetInfo> filteredAssetInfoList = new ArrayList<>();
     private RecyclerView recyclerView;
     private AssetDAO assetDAO;
     private AssetInfoRecyclerViewAdapter adapter;

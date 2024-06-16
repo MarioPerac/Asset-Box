@@ -1,43 +1,55 @@
 package org.unibl.etf.mr.assetledger.model;
 
-import android.content.Context;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
-import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
+import org.unibl.etf.mr.assetledger.util.Constants;
+import org.unibl.etf.mr.assetledger.util.LocalDateTimeConverter;
 
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.time.LocalDateTime;
 
+@Entity(tableName = Constants.TABLE_NAME_CENSUS_LISTS)
 public class CensusList {
+    @PrimaryKey(autoGenerate = true)
+    private long id;
 
-    private List<Item> items;
-    private static CensusList instance;
+    @ColumnInfo(name = "name")
+    private String name;
 
-    private CensusList() {
+
+    @ColumnInfo(name = "creation_date")
+    @TypeConverters(LocalDateTimeConverter.class)
+    private LocalDateTime creationDate;
+
+    public CensusList(long id, String name, LocalDateTime creationDate) {
+        this.id = id;
+        this.name = name;
+        this.creationDate = creationDate;
     }
 
-
-    public static CensusList getInstance() {
-        if (instance == null) {
-            instance = new CensusList();
-        }
-        return instance;
+    public long getId() {
+        return id;
     }
 
-
-    public List<Item> getItems() {
-        return items;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void loadAssetInfoList(Context context) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-//                assetDAO = AssetDatabase.getInstance(context).getAssetDAO();
-//                assetInfoList = assetDAO.getAllAssetInfo();
-                //to do
-            }
-        });
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

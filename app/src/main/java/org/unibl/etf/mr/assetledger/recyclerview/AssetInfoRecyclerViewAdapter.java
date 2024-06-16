@@ -30,7 +30,7 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
     public AssetInfoRecyclerViewAdapter(List<AssetInfo> assetsInfo, OnAssetClickListener listener) {
         this.assetsInfo = assetsInfo;
         this.listener = listener;
-        ;
+        
     }
 
     @Override
