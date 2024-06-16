@@ -1,5 +1,6 @@
 package org.unibl.etf.mr.assetledger.recyclerview;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +15,16 @@ import java.util.List;
 
 public class EmployeesRecyclerViewAdapter extends RecyclerView.Adapter<EmployeesRecyclerViewAdapter.ViewHolder> {
 
-    private List<AssetInfo> assetsInfo;
+    private List<String> names;
 
     public interface OnEmployeeClickListener {
-        void onEmployeeClick(View view, AssetInfo assetInfo);
+        void onEmployeeClick(View view, String name);
     }
 
     private OnEmployeeClickListener listener;
 
-    public EmployeesRecyclerViewAdapter(List<AssetInfo> assetsInfo, OnEmployeeClickListener listener) {
-        this.assetsInfo = assetsInfo;
+    public EmployeesRecyclerViewAdapter(List<String> names, OnEmployeeClickListener listener) {
+        this.names = names;
         this.listener = listener;
     }
 
@@ -38,20 +39,20 @@ public class EmployeesRecyclerViewAdapter extends RecyclerView.Adapter<Employees
 
     @Override
     public void onBindViewHolder(final EmployeesRecyclerViewAdapter.ViewHolder holder, int position) {
-        final AssetInfo assetInfo = assetsInfo.get(position);
+        final String name = names.get(position);
 
-        holder.employeeName.setText(assetInfo.getEmployeeName());
+        holder.employeeName.setText(name);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onEmployeeClick(v, assetInfo);
+                listener.onEmployeeClick(v, name);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return assetsInfo.size();
+        return names.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

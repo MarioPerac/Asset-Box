@@ -25,6 +25,7 @@ import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetledger.model.Asset;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
+import org.unibl.etf.mr.assetledger.model.AssetInfos;
 import org.unibl.etf.mr.assetledger.recyclerview.AssetInfoRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -49,11 +50,14 @@ public class AssetsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
         if (getArguments() != null) {
-            assetInfoList = (ArrayList<AssetInfo>) getArguments().getSerializable("assets");
-            filteredAssetInfoList.addAll(assetInfoList);
-        }
+            assetInfoList = (List<AssetInfo>) getArguments().getSerializable("assets");
+        } else
+            assetInfoList = AssetInfos.getInstance().getAll();
+
+        assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
+        filteredAssetInfoList.addAll(assetInfoList);
+
     }
 
     @Override

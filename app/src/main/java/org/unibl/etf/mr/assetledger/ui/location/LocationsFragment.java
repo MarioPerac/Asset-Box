@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
+import org.unibl.etf.mr.assetledger.model.AssetInfos;
 import org.unibl.etf.mr.assetledger.recyclerview.AssetInfoRecyclerViewAdapter;
 import org.unibl.etf.mr.assetledger.recyclerview.LocationsRecyclerViewAdapter;
 
@@ -40,9 +41,7 @@ public class LocationsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            assetInfoList = (List<AssetInfo>) getArguments().getSerializable("assets");
-        }
+        assetInfoList = AssetInfos.getInstance().getAll();
 
     }
 
@@ -56,7 +55,7 @@ public class LocationsFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.locations_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        recyclerView.setAdapter(new LocationsRecyclerViewAdapter(assetInfoList, this::onLocationClick));
+        recyclerView.setAdapter(new LocationsRecyclerViewAdapter(assetInfoList.stream().map(AssetInfo::getLocation).distinct().collect(Collectors.toList()), this::onLocationClick));
 
         emptyListMessage = root.findViewById(R.id.emptyListMessage);
         if (assetInfoList.isEmpty()) {
@@ -67,10 +66,9 @@ public class LocationsFragment extends Fragment {
         return root;
     }
 
-    private void onLocationClick(View view, AssetInfo assetInfo) {
+    private void onLocationClick(View view, String location) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("assets", (Serializable) assetInfoList.stream().filter(a -> a.getLocation().equals(assetInfo.getLocation())).collect(Collectors.toList()));
+        bundle.putSerializable("assets", (Serializable) assetInfoList.stream().filter(a -> a.getLocation().equals(location)).collect(Collectors.toList()));
         Navigation.findNavController(view).navigate(R.id.action_locationsFragment_to_navigation_assets, bundle);
-
     }
 }

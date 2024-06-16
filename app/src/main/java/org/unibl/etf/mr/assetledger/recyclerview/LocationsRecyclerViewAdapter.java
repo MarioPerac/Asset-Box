@@ -8,22 +8,21 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.unibl.etf.mr.assetledger.R;
-import org.unibl.etf.mr.assetledger.model.AssetInfo;
 
 import java.util.List;
 
 public class LocationsRecyclerViewAdapter extends RecyclerView.Adapter<LocationsRecyclerViewAdapter.ViewHolder> {
 
-    private List<AssetInfo> assetsInfo;
+    private List<String> locations;
 
     public interface OnLocationClickListener {
-        void onLocationClick(View view, AssetInfo assetInfo);
+        void onLocationClick(View view, String location);
     }
 
     private LocationsRecyclerViewAdapter.OnLocationClickListener listener;
 
-    public LocationsRecyclerViewAdapter(List<AssetInfo> assetsInfo, LocationsRecyclerViewAdapter.OnLocationClickListener listener) {
-        this.assetsInfo = assetsInfo;
+    public LocationsRecyclerViewAdapter(List<String> locations, LocationsRecyclerViewAdapter.OnLocationClickListener listener) {
+        this.locations = locations;
         this.listener = listener;
     }
 
@@ -38,32 +37,32 @@ public class LocationsRecyclerViewAdapter extends RecyclerView.Adapter<Locations
 
     @Override
     public void onBindViewHolder(final LocationsRecyclerViewAdapter.ViewHolder holder, int position) {
-        final AssetInfo assetInfo = assetsInfo.get(position);
+        final String location = locations.get(position);
 
-        holder.assetLocation.setText(assetInfo.getLocation());
+        holder.location.setText(location);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onLocationClick(v, assetInfo);
+                listener.onLocationClick(v, location);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return assetsInfo.size();
+        return locations.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
-        TextView assetLocation;
+        TextView location;
 
 
         public ViewHolder(View view) {
             super(view);
 
-            assetLocation = view.findViewById(R.id.location);
+            location = view.findViewById(R.id.location);
 
         }
 

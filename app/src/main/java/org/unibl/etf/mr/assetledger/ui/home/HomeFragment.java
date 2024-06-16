@@ -76,40 +76,16 @@ public class HomeFragment extends Fragment {
 
 
     private void onAssetCardClick(View view) {
-        List<AssetInfo> assetInfoList = assetInfos.getAll();
-        Bundle bundle = new Bundle();
-
-        if (assetInfoList == null || assetInfoList.isEmpty())
-            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
-        else
-            bundle.putSerializable("assets", (Serializable) assetInfoList);
-        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_assets, bundle);
-
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_assets);
     }
 
     public void onLocationCardClick(View view) {
 
-        List<AssetInfo> assetInfoList = assetInfos.getAll();
-
-        Bundle bundle = new Bundle();
-
-        if (assetInfoList == null || assetInfoList.isEmpty())
-            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
-        else
-            bundle.putSerializable("assets", (Serializable) assetInfoList);
-        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_locationsFragment, bundle);
-
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_locationsFragment);
     }
 
     public void onEmployeeCardClick(View view) {
-        List<AssetInfo> assetInfoList = assetInfos.getAll();
-        Bundle bundle = new Bundle();
-
-        if (assetInfoList == null || assetInfoList.isEmpty())
-            bundle.putSerializable("assets", new ArrayList<AssetInfo>());
-        else
-            bundle.putSerializable("assets", (Serializable) assetInfoList);
-        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_employeesFragment, bundle);
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_employeesFragment);
 
     }
 

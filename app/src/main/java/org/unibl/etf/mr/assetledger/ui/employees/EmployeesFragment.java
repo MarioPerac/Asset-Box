@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
+import org.unibl.etf.mr.assetledger.model.AssetInfos;
 import org.unibl.etf.mr.assetledger.recyclerview.EmployeesRecyclerViewAdapter;
 import org.unibl.etf.mr.assetledger.recyclerview.LocationsRecyclerViewAdapter;
 
@@ -40,9 +42,9 @@ public class EmployeesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            assetInfoList = (List<AssetInfo>) getArguments().getSerializable("assets");
-        }
+
+        assetInfoList = AssetInfos.getInstance().getAll();
+
     }
 
     @Override
@@ -54,7 +56,7 @@ public class EmployeesFragment extends Fragment {
         recyclerView = (RecyclerView) root.findViewById(R.id.employees_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-        recyclerView.setAdapter(new EmployeesRecyclerViewAdapter(assetInfoList, this::onEmployeeClick));
+        recyclerView.setAdapter(new EmployeesRecyclerViewAdapter(assetInfoList.stream().map(AssetInfo::getEmployeeName).distinct().collect(Collectors.toList()), this::onEmployeeClick));
 
         emptyListMessage = root.findViewById(R.id.emptyListMessage);
         if (assetInfoList.isEmpty()) {
@@ -65,10 +67,9 @@ public class EmployeesFragment extends Fragment {
         return root;
     }
 
-    private void onEmployeeClick(View view, AssetInfo assetInfo) {
-
+    private void onEmployeeClick(View view, String name) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("assets", (Serializable) assetInfoList.stream().filter(a -> a.getEmployeeName().equals(assetInfo.getEmployeeName())).collect(Collectors.toList()));
+        bundle.putSerializable("assets", (Serializable) assetInfoList.stream().filter(a -> a.getEmployeeName().equals(name)).collect(Collectors.toList()));
         Navigation.findNavController(view).navigate(R.id.action_employeesFragment_to_navigation_assets, bundle);
     }
 }

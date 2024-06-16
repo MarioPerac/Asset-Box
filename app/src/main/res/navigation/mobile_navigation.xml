@@ -49,7 +49,7 @@
         android:id="@+id/addAssetFragment"
         android:name="org.unibl.etf.mr.assetledger.ui.assets.AddAssetFragment"
         android:label="Add asset"
-        tools:layout="@layout/fragment_add_asset"></fragment>
+        tools:layout="@layout/fragment_add_asset" />
     <fragment
         android:id="@+id/assetDetailsFragment"
         android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetDetailsFragment"
@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_assetDetailsFragment_to_editAssetFragment"
             app:destination="@id/editAssetFragment" />
+        <action
+            android:id="@+id/action_assetDetailsFragment_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/locationsFragment"
@@ -80,5 +83,10 @@
         android:id="@+id/editAssetFragment"
         android:name="org.unibl.etf.mr.assetledger.ui.assets.EditAssetFragment"
         android:label="Edit Asset"
-        tools:layout="@layout/fragment_edit_asset"></fragment>
+        tools:layout="@layout/fragment_edit_asset" />
+    <fragment
+        android:id="@+id/mapsFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.location.MapsFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_maps" />
 </navigation>

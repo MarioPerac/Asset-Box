@@ -18,6 +18,7 @@ import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetledger.model.Asset;
 import org.unibl.etf.mr.assetledger.model.AssetInfos;
+import org.unibl.etf.mr.assetledger.model.MapLocation;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,7 +42,7 @@ public class AssetDetailsFragment extends Fragment {
 
     TextView barcode;
 
-    Button buttonEdit, buttonDelete;
+    Button buttonEdit, buttonDelete, buttonViewLocation;
 
     AssetInfos assetInfos;
 
@@ -79,7 +80,7 @@ public class AssetDetailsFragment extends Fragment {
         barcode = root.findViewById(R.id.textViewBarcode);
         buttonEdit = root.findViewById(R.id.buttonEdit);
         buttonDelete = root.findViewById(R.id.buttonDelete);
-
+        buttonViewLocation = root.findViewById(R.id.buttonViewLocation);
 
         image.setImageURI(Uri.parse(asset.getImagePath()));
         name.setText(asset.getName());
@@ -92,6 +93,7 @@ public class AssetDetailsFragment extends Fragment {
 
         buttonEdit.setOnClickListener(this::onEditClick);
         buttonDelete.setOnClickListener(this::onDeleteClick);
+        buttonViewLocation.setOnClickListener(this::onViewLocationButtonClick);
 
         return root;
     }
@@ -116,5 +118,12 @@ public class AssetDetailsFragment extends Fragment {
         });
 
         Navigation.findNavController(root).navigateUp();
+    }
+
+    private void onViewLocationButtonClick(View view) {
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("location", new MapLocation(asset.getLocation(), asset.getLocationLatitude(), asset.getLocationLongitude()));
+        Navigation.findNavController(view).navigate(R.id.action_assetDetailsFragment_to_mapsFragment, bundle);
     }
 }
