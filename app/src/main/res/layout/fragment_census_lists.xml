@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:layout_marginBottom="?attr/actionBarSize"
     tools:context=".ui.censuslists.CensusListsFragment">
 
     <LinearLayout
@@ -22,6 +23,8 @@
             android:id="@+id/search_category_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:minHeight="48dp"
             android:entries="@array/search_categories" />
 
         <androidx.appcompat.widget.SearchView
@@ -48,7 +51,7 @@
         android:id="@+id/emptyListMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_lists_yet"
+        android:text="@string/empty"
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"

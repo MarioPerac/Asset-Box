@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:layout_marginBottom="?attr/actionBarSize"
     tools:context=".ui.assets.AssetsFragment">
 
     <LinearLayout
@@ -14,6 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="8dp"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
@@ -22,7 +24,8 @@
             android:id="@+id/search_category_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/search_categories" />
+            android:entries="@array/search_categories"
+            android:minHeight="48dp" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
@@ -35,20 +38,18 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/assets_list"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchLayout"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/asset" />
-
 
     <TextView
         android:id="@+id/emptyListMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_assets_message"
+        android:text="@string/empty"
         android:textSize="18sp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"

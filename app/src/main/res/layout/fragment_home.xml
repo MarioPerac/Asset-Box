@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="?attr/actionBarSize"
     tools:context=".ui.home.HomeFragment">
 
     <View
@@ -27,16 +28,13 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/assetCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="fill"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="12dp"
             android:layout_margin="@dimen/small_margin"
             android:layout_row="0"
             android:layout_column="0"
+            app:cardElevation="12dp"
             android:foreground="?attr/selectableItemBackground">
 
             <LinearLayout
@@ -68,12 +66,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/employeeCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="fill"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
             android:layout_margin="@dimen/small_margin"
             android:layout_row="1"
@@ -108,12 +103,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/locationCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="fill"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
             android:layout_margin="@dimen/small_margin"
             android:layout_row="0"
@@ -148,12 +140,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/censusListCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_gravity="fill"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            app:cardCornerRadius="15dp"
             app:cardElevation="12dp"
             android:layout_margin="@dimen/small_margin"
             android:layout_row="1"
@@ -193,6 +182,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        android:layout_marginRight="@dimen/small_margin"
         android:contentDescription="@string/add_asset"
         android:layout_marginBottom="30pt"
         android:src="@android:drawable/ic_input_add"

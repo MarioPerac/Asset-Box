@@ -27,6 +27,17 @@
     <string name="find">Find</string>
     <string name="no_items">No items</string>
     <string name="cancel">Cancel</string>
+    <string name="name_starting_text">Name:\u00A0</string>
+    <string name="employee_starting_text">Employee:\u00A0</string>
+    <string name="created_starting_text">Created at:\u00A0</string>
+    <string name="location_starting_text">Location:\u00A0</string>
+    <string name="old_location_starting_text">Old Location:</string>
+    <string name="new_location_starting_text">New Location:</string>
+    <string name="description_starting_text">Description:</string>
+    <string name="barcode_starting_text">Barcode:</string>
+    <string name="price_starting_text">Price:</string>
+    <string name="or">OR</string>
+    <string name="empty">Empty</string>
     <string-array name="search_categories">
         <item>Name</item>
         <item>Date</item>

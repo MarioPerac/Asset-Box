@@ -57,6 +57,8 @@ public class AddCensusListFragment extends Fragment {
 
     private ItemsRecyclerViewAdapter adapter;
 
+    TextView emptyListMessage;
+
 
     public AddCensusListFragment() {
         // Required empty public constructor
@@ -84,14 +86,15 @@ public class AddCensusListFragment extends Fragment {
         buttonSave = root.findViewById(R.id.buttonSave);
         buttonCancel = root.findViewById(R.id.buttonCancel);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ItemsRecyclerViewAdapter(itemListManager.getItems());
+        adapter = new ItemsRecyclerViewAdapter(itemListManager.getItems(), (view, item) -> {
+        });
         recyclerView.setAdapter(adapter);
 
 
         buttonAddItem.setOnClickListener(this::onAddItemButtonClick);
         buttonSave.setOnClickListener(this::onSaveButtonClick);
         buttonCancel.setOnClickListener(this::onCancelButtonClick);
-        TextView emptyListMessage = root.findViewById(R.id.emptyListMessage);
+        emptyListMessage = root.findViewById(R.id.emptyListMessage);
         if (itemListManager.getItems().isEmpty()) {
             emptyListMessage.setVisibility(View.VISIBLE);
         } else {
@@ -153,7 +156,13 @@ public class AddCensusListFragment extends Fragment {
 
     public void onCancelButtonClick(View view) {
         editTextCensusListName.setText("");
-        ItemListManager.getInstance().clear();
+        itemListManager.clear();
+        adapter.notifyDataSetChanged();
+        if (itemListManager.getItems().isEmpty()) {
+            emptyListMessage.setVisibility(View.VISIBLE);
+        } else {
+            emptyListMessage.setVisibility(View.GONE);
+        }
     }
-    
+
 }
