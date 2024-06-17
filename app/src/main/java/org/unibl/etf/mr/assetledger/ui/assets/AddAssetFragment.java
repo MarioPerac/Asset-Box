@@ -169,16 +169,7 @@ public class AddAssetFragment extends Fragment {
         String employeeName = editTextEeployeeName.getText().toString();
         String location = editTextLocation.getText().toString();
 
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        Address address;
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(location, 1);
-            address = addresses.get(0);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Asset asset = new Asset(0, name, description, barcode, price, LocalDateTime.now(), employeeName, location, address.getLatitude(), address.getLongitude(), assetPhotoUri);
+        Asset asset = new Asset(0, name, description, barcode, price, LocalDateTime.now(), employeeName, location, assetPhotoUri);
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override

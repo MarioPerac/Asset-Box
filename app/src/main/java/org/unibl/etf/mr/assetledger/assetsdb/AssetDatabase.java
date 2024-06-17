@@ -19,7 +19,7 @@ import org.unibl.etf.mr.assetledger.model.Item;
 import org.unibl.etf.mr.assetledger.util.Constants;
 import org.unibl.etf.mr.assetledger.util.LocalDateTimeConverter;
 
-@Database(entities = {Asset.class, Item.class, CensusList.class}, version = 3)
+@Database(entities = {Asset.class, Item.class, CensusList.class}, version = 4)
 @TypeConverters(LocalDateTimeConverter.class)
 public abstract class AssetDatabase extends RoomDatabase {
 
@@ -42,7 +42,7 @@ public abstract class AssetDatabase extends RoomDatabase {
         return Room.databaseBuilder(context,
                         AssetDatabase.class,
                         Constants.DB_NAME)
-                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                 .build();
     }
 
@@ -98,6 +98,30 @@ public abstract class AssetDatabase extends RoomDatabase {
                     "`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                     "`name` TEXT, " +
                     "`creation_date` TEXT)");
+        }
+    };
+
+    private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS assets_new (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT," +
+                    "description TEXT," +
+                    "barcode INTEGER," +
+                    "price REAL," +
+                    "creation_date TEXT," +
+                    "employee_name TEXT," +
+                    "location TEXT," +
+                    "image_path TEXT)");
+
+            database.execSQL("INSERT INTO assets_new (id, name, description, barcode, price, creation_date, employee_name, location, image_path) " +
+                    "SELECT id, name, description, barcode, price, creation_date, employee_name, location, image_path FROM assets");
+
+            database.execSQL("DROP TABLE assets");
+
+            database.execSQL("ALTER TABLE assets_new RENAME TO assets");
         }
     };
 }

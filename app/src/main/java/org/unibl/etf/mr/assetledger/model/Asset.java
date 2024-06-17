@@ -39,16 +39,10 @@ public class Asset implements Serializable {
     @ColumnInfo(name = "location")
     private String location;
 
-    @ColumnInfo(name = "location_latitude")
-    private double locationLatitude;
-
-    @ColumnInfo(name = "location_longitude")
-    private double locationLongitude;
-
     @ColumnInfo(name = "image_path")
     private String imagePath;
 
-    public Asset(long id, String name, String description, long barcode, double price, LocalDateTime creationDate, String employeeName, String location, double locationLatitude, double locationLongitude, String imagePath) {
+    public Asset(long id, String name, String description, long barcode, double price, LocalDateTime creationDate, String employeeName, String location, String imagePath) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -57,8 +51,6 @@ public class Asset implements Serializable {
         this.creationDate = creationDate;
         this.employeeName = employeeName;
         this.location = location;
-        this.locationLatitude = locationLatitude;
-        this.locationLongitude = locationLongitude;
         this.imagePath = imagePath;
     }
 
@@ -99,13 +91,6 @@ public class Asset implements Serializable {
         return location;
     }
 
-    public double getLocationLatitude() {
-        return locationLatitude;
-    }
-
-    public double getLocationLongitude() {
-        return locationLongitude;
-    }
 
     public String getImagePath() {
         return imagePath;
@@ -137,14 +122,6 @@ public class Asset implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public void setLocationLatitude(double locationLatitude) {
-        this.locationLatitude = locationLatitude;
-    }
-
-    public void setLocationLongitude(double locationLongitude) {
-        this.locationLongitude = locationLongitude;
     }
 
     public void setImagePath(String imagePath) {

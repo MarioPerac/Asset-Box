@@ -1,5 +1,10 @@
 package org.unibl.etf.mr.assetledger.ui.assets;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +17,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
@@ -93,7 +102,12 @@ public class AssetDetailsFragment extends Fragment {
 
         buttonEdit.setOnClickListener(this::onEditClick);
         buttonDelete.setOnClickListener(this::onDeleteClick);
-        buttonViewLocation.setOnClickListener(this::onViewLocationButtonClick);
+        if (isGooglePlayServicesAvailable(requireContext()) && isInternetAvailable()) {
+            buttonViewLocation.setOnClickListener(this::onViewLocationButtonClick);
+        } else {
+            buttonViewLocation.setEnabled(false);
+            Toast.makeText(getContext(), "Google maps unavailable.", Toast.LENGTH_SHORT).show();
+        }
 
         return root;
     }
@@ -122,8 +136,25 @@ public class AssetDetailsFragment extends Fragment {
 
     private void onViewLocationButtonClick(View view) {
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("location", new MapLocation(asset.getLocation(), asset.getLocationLatitude(), asset.getLocationLongitude()));
-        Navigation.findNavController(view).navigate(R.id.action_assetDetailsFragment_to_mapsFragment, bundle);
+        if (isGooglePlayServicesAvailable(requireContext()) && isInternetAvailable()) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("location", asset.getLocation());
+            Navigation.findNavController(view).navigate(R.id.action_assetDetailsFragment_to_mapsFragment, bundle);
+        } else {
+            buttonViewLocation.setEnabled(false);
+            Toast.makeText(getContext(), "Google maps unavailable.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isGooglePlayServicesAvailable(Context context) {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(context);
+        return resultCode == ConnectionResult.SUCCESS;
+    }
+
+    private boolean isInternetAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) requireContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

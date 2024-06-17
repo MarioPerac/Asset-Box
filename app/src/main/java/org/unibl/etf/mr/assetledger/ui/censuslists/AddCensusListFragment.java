@@ -124,9 +124,6 @@ public class AddCensusListFragment extends Fragment {
                     if (locationChanged || employeeNameChanged) {
                         if (locationChanged) {
                             asset.setLocation(item.getNewLocation());
-                            Address address = getAddress(asset.getLocation());
-                            asset.setLocationLongitude(address.getLongitude());
-                            asset.setLocationLatitude(address.getLatitude());
                         }
 
                         if (employeeNameChanged) {
@@ -158,17 +155,5 @@ public class AddCensusListFragment extends Fragment {
         editTextCensusListName.setText("");
         ItemListManager.getInstance().clear();
     }
-
-    private Address getAddress(String location) {
-        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        Address address;
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(location, 1);
-            address = addresses.get(0);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return address;
-    }
+    
 }

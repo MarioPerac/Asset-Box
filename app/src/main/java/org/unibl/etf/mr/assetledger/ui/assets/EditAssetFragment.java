@@ -209,17 +209,6 @@ public class EditAssetFragment extends Fragment {
         }
         if (!asset.getLocation().equals(location)) {
             asset.setLocation(location);
-            Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-            Address address;
-            try {
-                List<Address> addresses = geocoder.getFromLocationName(location, 1);
-                address = addresses.get(0);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-
-            asset.setLocationLatitude(address.getLatitude());
-            asset.setLocationLongitude(address.getLongitude());
         }
         if (!asset.getImagePath().equals(assetPhotoUri)) {
             asset.setImagePath(assetPhotoUri);
