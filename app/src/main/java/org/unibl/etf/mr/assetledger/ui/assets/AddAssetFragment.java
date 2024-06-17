@@ -1,10 +1,7 @@
 package org.unibl.etf.mr.assetledger.ui.assets;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -18,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,15 +33,11 @@ import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetledger.model.Asset;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
-import org.unibl.etf.mr.assetledger.model.AssetInfos;
+import org.unibl.etf.mr.assetledger.model.AssetInfoListManager;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -193,8 +185,8 @@ public class AddAssetFragment extends Fragment {
             public void run() {
                 long id = assetDAO.insert(asset);
                 asset.setId(id);
-                List<AssetInfo> assetInfos = AssetInfos.getInstance().getAll();
-                assetInfos.add(AssetInfos.createAssetInfo(asset));
+                List<AssetInfo> assetInfos = AssetInfoListManager.getInstance().getAll();
+                assetInfos.add(AssetInfoListManager.createAssetInfo(asset));
                 getActivity().runOnUiThread(() -> {
                     Navigation.findNavController(view).navigateUp();
                 });

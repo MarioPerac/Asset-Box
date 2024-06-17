@@ -2,7 +2,6 @@ package org.unibl.etf.mr.assetledger.ui.assets;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,23 +11,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetledger.model.Asset;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
-import org.unibl.etf.mr.assetledger.model.AssetInfos;
+import org.unibl.etf.mr.assetledger.model.AssetInfoListManager;
 import org.unibl.etf.mr.assetledger.recyclerview.AssetInfoRecyclerViewAdapter;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -54,7 +51,7 @@ public class AssetsFragment extends Fragment {
         if (getArguments() != null) {
             assetInfoList = (List<AssetInfo>) getArguments().getSerializable("assets");
         } else
-            assetInfoList = AssetInfos.getInstance().getAll();
+            assetInfoList = AssetInfoListManager.getInstance().getAll();
 
         assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
         filteredAssetInfoList.addAll(assetInfoList);
@@ -132,11 +129,16 @@ public class AssetsFragment extends Fragment {
         if (TextUtils.isEmpty(query)) {
             filteredAssetInfoList.addAll(assetInfoList);
         } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             for (AssetInfo assetInfo : assetInfoList) {
                 if (currentSearchCategory.equals("Name") && assetInfo.getName().toLowerCase().contains(query.toLowerCase())) {
                     filteredAssetInfoList.add(assetInfo);
-                } else if (currentSearchCategory.equals("Location") && assetInfo.getLocation().toLowerCase().contains(query.toLowerCase())) {
-                    filteredAssetInfoList.add(assetInfo);
+                } else if (currentSearchCategory.equals("Date")) {
+                    String formattedDate = assetInfo.getCreationDate().format(formatter);
+                    if (formattedDate.contains(query)) {
+                        filteredAssetInfoList.add(assetInfo);
+                    }
+
                 }
             }
         }

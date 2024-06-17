@@ -10,24 +10,24 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class AssetInfos {
+public class AssetInfoListManager {
 
 
-    private static AssetInfos instance;
+    private static AssetInfoListManager instance;
     private List<AssetInfo> assetInfoList;
 
     AssetDAO assetDAO;
 
 
-    public static synchronized AssetInfos getInstance() {
+    public static synchronized AssetInfoListManager getInstance() {
         if (instance == null) {
-            instance = new AssetInfos();
+            instance = new AssetInfoListManager();
         }
         return instance;
 
     }
 
-    private AssetInfos() {
+    private AssetInfoListManager() {
 
     }
 
@@ -72,6 +72,11 @@ public class AssetInfos {
         assetInfoList.remove(oldAssetInfo);
         assetInfoList.add(assetInfo);
 
+    }
+
+    public void updateAssetInfoList(List<Asset> assets) {
+        for (Asset asset : assets)
+            updateAssetInfo(createAssetInfo(asset));
     }
 
 }

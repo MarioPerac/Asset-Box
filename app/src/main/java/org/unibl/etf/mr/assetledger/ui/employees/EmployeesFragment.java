@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
-import org.unibl.etf.mr.assetledger.model.AssetInfos;
+import org.unibl.etf.mr.assetledger.model.AssetInfoListManager;
 import org.unibl.etf.mr.assetledger.recyclerview.StringListRecyclerViewAdapter;
 
 import java.io.Serializable;
@@ -41,7 +41,7 @@ public class EmployeesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        assetInfoList = AssetInfos.getInstance().getAll();
+        assetInfoList = AssetInfoListManager.getInstance().getAll();
 
     }
 

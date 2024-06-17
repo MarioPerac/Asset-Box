@@ -17,7 +17,7 @@ import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetledger.model.Asset;
-import org.unibl.etf.mr.assetledger.model.AssetInfos;
+import org.unibl.etf.mr.assetledger.model.AssetInfoListManager;
 import org.unibl.etf.mr.assetledger.model.MapLocation;
 
 import java.util.concurrent.ExecutorService;
@@ -44,7 +44,7 @@ public class AssetDetailsFragment extends Fragment {
 
     Button buttonEdit, buttonDelete, buttonViewLocation;
 
-    AssetInfos assetInfos;
+    AssetInfoListManager assetInfoManager;
 
     AssetDAO assetDAO;
 
@@ -58,7 +58,7 @@ public class AssetDetailsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             asset = (Asset) getArguments().getSerializable("asset");
-            assetInfos = AssetInfos.getInstance();
+            assetInfoManager = AssetInfoListManager.getInstance();
             assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
         }
     }
@@ -107,7 +107,7 @@ public class AssetDetailsFragment extends Fragment {
 
     private void onDeleteClick(View view) {
 
-        assetInfos.deleteAssetInfo(asset.getId());
+        assetInfoManager.deleteAssetInfo(asset.getId());
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {

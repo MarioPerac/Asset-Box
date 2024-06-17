@@ -9,12 +9,20 @@ import org.unibl.etf.mr.assetledger.util.Constants;
 
 @Entity(
         tableName = Constants.TABLE_NAME_ITEMS,
-        foreignKeys = @ForeignKey(
-                entity = CensusList.class,
-                parentColumns = "id",
-                childColumns = "census_id",
-                onDelete = ForeignKey.CASCADE
-        )
+        foreignKeys = {
+                @ForeignKey(
+                        entity = CensusList.class,
+                        parentColumns = "id",
+                        childColumns = "census_id",
+                        onDelete = ForeignKey.CASCADE
+                ),
+                @ForeignKey(
+                        entity = Asset.class,
+                        parentColumns = "id",
+                        childColumns = "asset_id",
+                        onDelete = ForeignKey.CASCADE
+                )
+        }
 )
 public class Item {
 
@@ -24,6 +32,7 @@ public class Item {
     @ColumnInfo(name = "asset_id")
     private long assetId;
 
+    private transient Asset asset;
     @ColumnInfo(name = "current_employee_name")
     private String currentEmployeeName;
     @ColumnInfo(name = "new_employee_name")
@@ -100,5 +109,13 @@ public class Item {
 
     public void setCensusId(long censusId) {
         this.censusId = censusId;
+    }
+
+    public Asset getAsset() {
+        return asset;
+    }
+
+    public void setAsset(Asset asset) {
+        this.asset = asset;
     }
 }

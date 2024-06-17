@@ -42,10 +42,10 @@ public class CensusListsRecyclerViewAdapter extends RecyclerView.Adapter<CensusL
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CensusListsRecyclerViewAdapter.ViewHolder holder, int position) {
         final CensusList censusList = lists.get(position);
         holder.name.setText(censusList.getName());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         holder.creationDateTime.setText(censusList.getCreationDate().format(formatter));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

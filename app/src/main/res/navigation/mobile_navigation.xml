@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_navigation_home_to_addAssetFragment"
             app:destination="@id/addAssetFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_censusListsFragment"
+            app:destination="@id/censusListsFragment" />
     </fragment>
 
     <fragment
@@ -92,5 +95,43 @@
         <action
             android:id="@+id/action_mapsFragment_to_navigation_assets"
             app:destination="@id/navigation_assets" />
+    </fragment>
+    <fragment
+        android:id="@+id/censusListsFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.CensusListsFragment"
+        android:label="Census Lists"
+        tools:layout="@layout/fragment_census_lists">
+        <action
+            android:id="@+id/action_censusListsFragment_to_itemsFragment"
+            app:destination="@id/itemsFragment" />
+        <action
+            android:id="@+id/action_censusListsFragment_to_addCensusListFragment"
+            app:destination="@id/addCensusListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.ItemsFragment"
+        android:label="Items"
+        tools:layout="@layout/fragment_items" />
+    <fragment
+        android:id="@+id/addCensusListFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.AddCensusListFragment"
+        android:label="Add CensusList">
+        <action
+            android:id="@+id/action_addCensusListFragment_to_scanItemFragment"
+            app:destination="@id/scanItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.AddItemFragment"
+        android:label="Add Item" />
+    <fragment
+        android:id="@+id/scanItemFragment"
+        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.ScanItemFragment"
+        android:label="fragment_scan_item"
+        tools:layout="@layout/fragment_scan_item">
+        <action
+            android:id="@+id/action_scanItemFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
     </fragment>
 </navigation>

@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,35 +17,29 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.unibl.etf.mr.assetledger.R;
-import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
-import org.unibl.etf.mr.assetledger.model.CensusList;
-import org.unibl.etf.mr.assetledger.model.CensusListsManager;
 import org.unibl.etf.mr.assetledger.model.Item;
-import org.unibl.etf.mr.assetledger.recyclerview.CensusListsRecyclerViewAdapter;
+import org.unibl.etf.mr.assetledger.recyclerview.ItemsRecyclerViewAdapter;
 
-import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class CensusListsFragment extends Fragment {
+public class ItemsFragment extends Fragment {
 
     View root;
 
-    List<CensusList> lists;
-    List<CensusList> filteredLists = new ArrayList<>();
+    List<Item> items;
 
+    List<Item> filteredItems = new ArrayList<>();
     private RecyclerView recyclerView;
 
-    private CensusListsRecyclerViewAdapter adapter;
+    private ItemsRecyclerViewAdapter adapter;
 
     private Spinner searchCategorySpinner;
     private SearchView searchView;
     private String currentSearchCategory = "Name";
 
-    public CensusListsFragment() {
+    public ItemsFragment() {
         // Required empty public constructor
     }
 
@@ -54,19 +47,20 @@ public class CensusListsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        lists = CensusListsManager.getInstance().getCensusLists();
-        filteredLists.addAll(lists);
-
+        if (getArguments() != null) {
+            items = (List<Item>) getArguments().getSerializable("items");
+            filteredItems.addAll(items);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        root = inflater.inflate(R.layout.fragment_census_lists, container, false);
+        root = inflater.inflate(R.layout.fragment_items, container, false);
         recyclerView = root.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new CensusListsRecyclerViewAdapter(filteredLists, this::onListClick);
+        adapter = new ItemsRecyclerViewAdapter(items, this::onItemClick);
         recyclerView.setAdapter(adapter);
 
         searchCategorySpinner = root.findViewById(R.id.search_category_spinner);
@@ -103,7 +97,7 @@ public class CensusListsFragment extends Fragment {
         });
 
         TextView emptyListMessage = root.findViewById(R.id.emptyListMessage);
-        if (filteredLists.isEmpty()) {
+        if (filteredItems.isEmpty()) {
             emptyListMessage.setVisibility(View.VISIBLE);
         } else {
             emptyListMessage.setVisibility(View.GONE);
@@ -111,34 +105,23 @@ public class CensusListsFragment extends Fragment {
         return root;
     }
 
-    private void onListClick(View view, CensusList censusList) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(() -> {
+    private void onItemClick(View view, Item item) {
 
-            List<Item> items = AssetDatabase.getInstance(getContext()).getItemDAO().getAllCensusListItems(censusList.getId());
-            for (Item item : items)
-                item.setAsset(AssetDatabase.getInstance(getContext()).getAssetDAO().getById(item.getAssetId()));
-            getActivity().runOnUiThread(() -> {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("items", (Serializable) items);
-                Navigation.findNavController(view).navigate(R.id.action_censusListsFragment_to_itemsFragment, bundle);
-            });
-        });
     }
 
     private void filterAssets(String query) {
-        filteredLists.clear();
+        filteredItems.clear();
         if (TextUtils.isEmpty(query)) {
-            filteredLists.addAll(lists);
+            filteredItems.addAll(items);
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            for (CensusList censusList : lists) {
-                if (currentSearchCategory.equals("Name") && censusList.getName().toLowerCase().contains(query.toLowerCase())) {
-                    filteredLists.add(censusList);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            for (Item item : items) {
+                if (currentSearchCategory.equals("Name") && item.getAsset().getName().toLowerCase().contains(query.toLowerCase())) {
+                    filteredItems.add(item);
                 } else if (currentSearchCategory.equals("Date")) {
-                    String formattedDate = censusList.getCreationDate().format(formatter);
+                    String formattedDate = item.getAsset().getCreationDate().format(formatter);
                     if (formattedDate.contains(query)) {
-                        filteredLists.add(censusList);
+                        filteredItems.add(item);
                     }
                 }
             }

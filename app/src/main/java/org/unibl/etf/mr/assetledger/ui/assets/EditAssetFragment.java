@@ -33,7 +33,7 @@ import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetledger.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetledger.model.Asset;
-import org.unibl.etf.mr.assetledger.model.AssetInfos;
+import org.unibl.etf.mr.assetledger.model.AssetInfoListManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class EditAssetFragment extends Fragment {
 
     View root;
     Asset asset;
-    AssetInfos assetInfos;
+    AssetInfoListManager assetInfoManager;
 
     ImageView assetImage;
 
@@ -85,7 +85,7 @@ public class EditAssetFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             asset = (Asset) getArguments().getSerializable("asset");
-            assetInfos = AssetInfos.getInstance();
+            assetInfoManager = AssetInfoListManager.getInstance();
             assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
 
             startForProfileImageResult = registerForActivityResult(
@@ -226,7 +226,7 @@ public class EditAssetFragment extends Fragment {
         }
 
 
-        assetInfos.updateAssetInfo(AssetInfos.createAssetInfo(asset));
+        assetInfoManager.updateAssetInfo(AssetInfoListManager.createAssetInfo(asset));
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {

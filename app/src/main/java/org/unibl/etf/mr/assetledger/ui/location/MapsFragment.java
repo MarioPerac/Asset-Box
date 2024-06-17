@@ -20,7 +20,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.unibl.etf.mr.assetledger.R;
-import org.unibl.etf.mr.assetledger.model.AssetInfos;
+import org.unibl.etf.mr.assetledger.model.AssetInfoListManager;
 import org.unibl.etf.mr.assetledger.model.MapLocation;
 
 import java.io.Serializable;
@@ -48,7 +48,7 @@ public class MapsFragment extends Fragment {
 
         public boolean onMarkerClick(Marker marker) {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("assets", (Serializable) AssetInfos.getInstance().getAll().stream().filter(a -> a.getLocation().equals(location.getName())).collect(Collectors.toList()));
+            bundle.putSerializable("assets", (Serializable) AssetInfoListManager.getInstance().getAll().stream().filter(a -> a.getLocation().equals(location.getName())).collect(Collectors.toList()));
             Navigation.findNavController(root).navigate(R.id.action_mapsFragment_to_navigation_assets, bundle);
             return true;
         }

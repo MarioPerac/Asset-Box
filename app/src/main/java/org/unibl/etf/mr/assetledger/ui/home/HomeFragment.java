@@ -18,24 +18,25 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.unibl.etf.mr.assetledger.R;
 import org.unibl.etf.mr.assetledger.databinding.FragmentHomeBinding;
 import org.unibl.etf.mr.assetledger.model.AssetInfo;
-import org.unibl.etf.mr.assetledger.model.AssetInfos;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import org.unibl.etf.mr.assetledger.model.AssetInfoListManager;
+import org.unibl.etf.mr.assetledger.model.CensusListsManager;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
 
-    private AssetInfos assetInfos;
+    private AssetInfoListManager assetInfoManager;
+
+    private CensusListsManager censusListsManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        assetInfos = AssetInfos.getInstance();
-        assetInfos.loadAssetInfoList(getContext());
+        assetInfoManager = AssetInfoListManager.getInstance();
+        assetInfoManager.loadAssetInfoList(getContext());
+        censusListsManager = CensusListsManager.getInstance();
+        censusListsManager.loadCensusLists(getContext());
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -58,16 +59,12 @@ public class HomeFragment extends Fragment {
 
         locationCard.setOnClickListener(this::onLocationCardClick);
 
-        censusListCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle click
-            }
-        });
+        censusListCard.setOnClickListener(this::onCensusListsCardClick);
 
 
         return root;
     }
+
 
     @Override
     public void onDestroyView() {
@@ -77,7 +74,7 @@ public class HomeFragment extends Fragment {
 
 
     private void onAssetCardClick(View view) {
-        for (AssetInfo a : assetInfos.getAll()) {
+        for (AssetInfo a : assetInfoManager.getAll()) {
             Log.d("asset", a.getImagePath());
         }
         Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_navigation_assets);
@@ -95,5 +92,9 @@ public class HomeFragment extends Fragment {
 
     private void onAddAssetClick(View view) {
         Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_addAssetFragment);
+    }
+
+    private void onCensusListsCardClick(View view) {
+        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_censusListsFragment);
     }
 }

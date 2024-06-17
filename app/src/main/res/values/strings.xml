@@ -22,8 +22,13 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="save">save</string>
+    <string name="no_lists_yet">No lists yet</string>
+    <string name="add_item">Add item</string>
+    <string name="find">Find</string>
+    <string name="no_items">No items</string>
+    <string name="cancel">Cancel</string>
     <string-array name="search_categories">
         <item>Name</item>
-        <item>Location</item>
+        <item>Date</item>
     </string-array>
 </resources>
