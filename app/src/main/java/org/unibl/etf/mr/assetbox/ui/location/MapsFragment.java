@@ -77,10 +77,11 @@ public class MapsFragment extends Fragment {
 
     private Address getAddress(String location) {
         Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
-        Address address;
+        Address address = null;
         try {
             List<Address> addresses = geocoder.getFromLocationName(location, 1);
-            address = addresses.get(0);
+            if (addresses != null && !addresses.isEmpty())
+                address = addresses.get(0);
         } catch (IOException e) {
             address = null;
         }
