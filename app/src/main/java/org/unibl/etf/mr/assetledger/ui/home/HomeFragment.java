@@ -50,9 +50,6 @@ public class HomeFragment extends Fragment {
         CardView employeeCard = root.findViewById(R.id.employeeCard);
         CardView locationCard = root.findViewById(R.id.locationCard);
         CardView censusListCard = root.findViewById(R.id.censusListCard);
-        FloatingActionButton addAssetButton = root.findViewById(R.id.addAssetButton);
-        addAssetButton.setOnClickListener(this::onAddAssetClick);
-
         assetCard.setOnClickListener(this::onAssetCardClick);
 
         employeeCard.setOnClickListener(this::onEmployeeCardClick);
@@ -88,10 +85,6 @@ public class HomeFragment extends Fragment {
     public void onEmployeeCardClick(View view) {
         Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_employeesFragment);
 
-    }
-
-    private void onAddAssetClick(View view) {
-        Navigation.findNavController(view).navigate(R.id.action_navigation_home_to_addAssetFragment);
     }
 
     private void onCensusListsCardClick(View view) {

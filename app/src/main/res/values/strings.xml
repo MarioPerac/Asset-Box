@@ -7,7 +7,7 @@
     <string name="assets_card">Assets</string>
     <string name="locations_card">Locations</string>
     <string name="employees_card">Employees</string>
-    <string name="census_list_card">Census List</string>
+    <string name="census_list_card">Census Lists</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_assets_message">No assets yet</string>
     <string name="add_asset">Add asset</string>
@@ -38,6 +38,8 @@
     <string name="price_starting_text">Price:</string>
     <string name="or">OR</string>
     <string name="empty">Empty</string>
+    <string name="title_add_asset">Add asset</string>
+    <string name="title_add_census_list">Add Census List</string>
     <string-array name="search_categories">
         <item>Name</item>
         <item>Date</item>

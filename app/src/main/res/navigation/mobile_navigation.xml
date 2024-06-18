@@ -26,18 +26,6 @@
             android:id="@+id/action_navigation_home_to_censusListsFragment"
             app:destination="@id/censusListsFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="org.unibl.etf.mr.assetledger.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="org.unibl.etf.mr.assetledger.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_assets"
         android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetsFragment"
@@ -116,7 +104,7 @@
     <fragment
         android:id="@+id/addCensusListFragment"
         android:name="org.unibl.etf.mr.assetledger.ui.censuslists.AddCensusListFragment"
-        android:label="Add CensusList">
+        android:label="Add Census List">
         <action
             android:id="@+id/action_addCensusListFragment_to_scanItemFragment"
             app:destination="@id/scanItemFragment" />

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.addCensusListFragment)
+                R.id.navigation_home, R.id.addAssetFragment, R.id.addCensusListFragment)
                 .build();
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         navView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
-            if (id == R.id.navigation_home || id == R.id.navigation_dashboard || id == R.id.addCensusListFragment) {
+            if (id == R.id.navigation_home || id == R.id.addAssetFragment || id == R.id.addCensusListFragment) {
                 navController.navigate(id);
                 return true;
             }
