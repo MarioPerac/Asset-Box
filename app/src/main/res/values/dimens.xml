@@ -9,4 +9,5 @@
     <dimen name="extra_small_margin">6dp</dimen>
     <dimen name="small_text">18sp</dimen>
     <dimen name="medium_text">21sp</dimen>
+    <dimen name="margin_bottom_floating_button">30pt</dimen>
 </resources>

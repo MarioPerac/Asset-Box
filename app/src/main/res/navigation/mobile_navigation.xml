@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="org.unibl.etf.mr.assetledger.ui.home.HomeFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_assets"
-        android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetsFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.assets.AssetsFragment"
         android:label="@string/title_assets_list"
         tools:layout="@layout/fragment_assets_list">
 
@@ -38,12 +38,12 @@
     </fragment>
     <fragment
         android:id="@+id/addAssetFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.assets.AddAssetFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.assets.AddAssetFragment"
         android:label="Add asset"
         tools:layout="@layout/fragment_add_asset" />
     <fragment
         android:id="@+id/assetDetailsFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.assets.AssetDetailsFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.assets.AssetDetailsFragment"
         android:label="Asset Details">
 
         <action
@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationsFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.location.LocationsFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.location.LocationsFragment"
         android:label="Locations">
         <action
             android:id="@+id/action_locationsFragment_to_navigation_assets"
@@ -63,7 +63,7 @@
     </fragment>
     <fragment
         android:id="@+id/employeesFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.employees.EmployeesFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.employees.EmployeesFragment"
         android:label="Employees"
         tools:layout="@layout/fragment_employees">
         <action
@@ -72,12 +72,12 @@
     </fragment>
     <fragment
         android:id="@+id/editAssetFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.assets.EditAssetFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.assets.EditAssetFragment"
         android:label="Edit Asset"
         tools:layout="@layout/fragment_edit_asset" />
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.location.MapsFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.location.MapsFragment"
         android:label="Map"
         tools:layout="@layout/fragment_maps">
         <action
@@ -86,7 +86,7 @@
     </fragment>
     <fragment
         android:id="@+id/censusListsFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.CensusListsFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.censuslists.CensusListsFragment"
         android:label="Census Lists"
         tools:layout="@layout/fragment_census_lists">
         <action
@@ -98,12 +98,12 @@
     </fragment>
     <fragment
         android:id="@+id/itemsFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.ItemsFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.censuslists.ItemsFragment"
         android:label="Items"
         tools:layout="@layout/fragment_items" />
     <fragment
         android:id="@+id/addCensusListFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.AddCensusListFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.censuslists.AddCensusListFragment"
         android:label="Add Census List">
         <action
             android:id="@+id/action_addCensusListFragment_to_scanItemFragment"
@@ -111,11 +111,11 @@
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.AddItemFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.censuslists.AddItemFragment"
         android:label="Add Item" />
     <fragment
         android:id="@+id/scanItemFragment"
-        android:name="org.unibl.etf.mr.assetledger.ui.censuslists.ScanItemFragment"
+        android:name="org.unibl.etf.mr.assetbox.ui.censuslists.ScanItemFragment"
         android:label="Scan Item"
         tools:layout="@layout/fragment_scan_item">
         <action

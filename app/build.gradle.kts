@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "org.unibl.etf.mr.assetledger"
+    namespace = "org.unibl.etf.mr.assetbox"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "org.unibl.etf.mr.assetledger"
+        applicationId = "org.unibl.etf.mr.assetbox"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

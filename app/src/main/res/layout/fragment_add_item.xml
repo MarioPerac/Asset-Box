@@ -1,92 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_marginBottom="?attr/actionBarSize"
     android:padding="16dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10pt"
-        android:orientation="horizontal">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageViewAsset"
-            android:layout_width="75pt"
-            android:layout_height="75pt"
-            android:src="@drawable/assets_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/imageConstraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/name" />
-
-    <TextView
-        android:id="@+id/textViewCreationDateTime"
-        android:text="Creation Date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/textViewDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/description" />
-
-    <TextView
-        android:id="@+id/textViewBarcode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/barcode" />
-
-    <TextView
-        android:id="@+id/textViewPrice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/price" />
-
-    <TextView
-        android:id="@+id/textViewEmployeeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/employee_name" />
-
-    <EditText
-        android:id="@+id/newEmployeeName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="New Employee Name" />
+            <ImageView
+                android:id="@+id/imageViewAsset"
+                android:layout_width="75pt"
+                android:layout_height="75pt"
+                android:contentDescription="@string/asset_image"
+                android:src="@drawable/assets_icon"
+                app:layout_constraintBottom_toBottomOf="@id/textViewNameStarting"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/textViewLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/location" />
+            <TextView
+                android:id="@+id/textViewNameStarting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_starting_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageViewAsset" />
 
-    <EditText
-        android:id="@+id/newLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="New Location" />
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textViewNameStarting"
+                app:layout_constraintTop_toBottomOf="@id/imageViewAsset" />
 
+            <TextView
+                android:id="@+id/textViewCreationDateTimeStarting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/created_starting_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewNameStarting" />
+
+            <TextView
+                android:id="@+id/textViewCreationDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textViewCreationDateTimeStarting"
+                app:layout_constraintTop_toBottomOf="@id/textViewNameStarting" />
+
+
+            <TextView
+                android:id="@+id/textViewDescriptionStarting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/description_starting_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewCreationDateTimeStarting" />
+
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textViewDescriptionStarting"
+                app:layout_constraintTop_toBottomOf="@id/textViewCreationDateTimeStarting" />
+
+            <TextView
+                android:id="@+id/textViewBarcodeStarting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/barcode_starting_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewDescriptionStarting" />
+
+            <TextView
+                android:id="@+id/textViewBarcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textViewBarcodeStarting"
+                app:layout_constraintTop_toBottomOf="@id/textViewDescriptionStarting" />
+
+            <TextView
+                android:id="@+id/textViewPriceStarting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/price_starting_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewBarcodeStarting" />
+
+            <TextView
+                android:id="@+id/textViewPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textViewPriceStarting"
+                app:layout_constraintTop_toBottomOf="@id/textViewBarcode" />
+
+            <TextView
+                android:id="@+id/textViewEmployeeNameStarting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/employee_starting_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewPriceStarting" />
+
+            <TextView
+                android:id="@+id/textViewEmployeeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textViewEmployeeNameStarting"
+                app:layout_constraintTop_toBottomOf="@id/textViewPriceStarting" />
+
+            <EditText
+                android:id="@+id/newEmployeeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_employee_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewEmployeeNameStarting" />
+
+
+            <TextView
+                android:id="@+id/textViewLocationStarting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/location_starting_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/newEmployeeName" />
+
+            <TextView
+                android:id="@+id/textViewLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/textViewLocationStarting"
+                app:layout_constraintTop_toBottomOf="@id/newEmployeeName" />
+
+            <EditText
+                android:id="@+id/newLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/new_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textViewLocationStarting" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/buttonEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/add" />
-
-
-</LinearLayout>
+        android:layout_marginTop="@dimen/medium_margin"
+        android:text="@string/add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
