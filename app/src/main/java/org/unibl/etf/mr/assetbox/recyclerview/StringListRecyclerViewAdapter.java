@@ -3,6 +3,7 @@ package org.unibl.etf.mr.assetbox.recyclerview;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +20,22 @@ public class StringListRecyclerViewAdapter extends RecyclerView.Adapter<StringLi
         void onStringClick(View view, String list);
     }
 
-    private OnStringClickListener listener;
+    public interface OnDeleteButtonClickListener {
+        void onDeleteButtonClick(View view, String string);
+    }
+
+    private OnStringClickListener onStringClickListener;
+    private OnDeleteButtonClickListener onDeleteButtonClickListener;
 
     public StringListRecyclerViewAdapter(List<String> strings, OnStringClickListener listener) {
         this.strings = strings;
-        this.listener = listener;
+        this.onStringClickListener = listener;
+    }
+
+    public StringListRecyclerViewAdapter(List<String> strings, OnStringClickListener onStringClickListener, OnDeleteButtonClickListener onDeleteButtonClickListener) {
+        this.strings = strings;
+        this.onStringClickListener = onStringClickListener;
+        this.onDeleteButtonClickListener = onDeleteButtonClickListener;
     }
 
     @Override
@@ -43,9 +55,13 @@ public class StringListRecyclerViewAdapter extends RecyclerView.Adapter<StringLi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onStringClick(v, string);
+                onStringClickListener.onStringClick(v, string);
             }
         });
+
+        if (onDeleteButtonClickListener != null) {
+            holder.buttonDelete.setOnClickListener((View v) -> onDeleteButtonClickListener.onDeleteButtonClick(v, string));
+        }
     }
 
     @Override
@@ -53,16 +69,25 @@ public class StringListRecyclerViewAdapter extends RecyclerView.Adapter<StringLi
         return strings.size();
     }
 
+    public void updateData(List<String> newData) {
+        this.strings = newData;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
 
         TextView string;
 
+        Button buttonDelete;
+        Button buttonEdit;
 
         public ViewHolder(View view) {
             super(view);
 
             string = view.findViewById(R.id.name);
+            buttonDelete = view.findViewById(R.id.buttonDelete);
+            buttonEdit = view.findViewById(R.id.buttonEdit);
 
         }
 

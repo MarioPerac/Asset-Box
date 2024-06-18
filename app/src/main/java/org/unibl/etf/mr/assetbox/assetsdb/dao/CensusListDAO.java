@@ -2,6 +2,7 @@ package org.unibl.etf.mr.assetbox.assetsdb.dao;
 
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -14,6 +15,9 @@ import java.util.List;
 public interface CensusListDAO {
     @Insert
     long insert(CensusList censusList);
+
+    @Delete
+    void delete(CensusList censusList);
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME_CENSUS_LISTS + " WHERE id = :id")
     CensusList getById(long id);

@@ -152,7 +152,7 @@ public class AddAssetFragment extends Fragment {
 
 
     public void onAddButtonClick(View view) {
-        // Get the input values as strings
+
         String name = editTextName.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
         String barcodeString = editTextBarcode.getText().toString().trim();
@@ -160,9 +160,8 @@ public class AddAssetFragment extends Fragment {
         String employeeName = editTextEmployeeName.getText().toString().trim();
         String location = editTextLocation.getText().toString().trim();
 
-        // Validate inputs
         if (name.isEmpty() || barcodeString.isEmpty() || priceString.isEmpty() || employeeName.isEmpty() || location.isEmpty()) {
-            Toast.makeText(getContext(), "All fields except description must be filled in.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "All fields except Description and Image must be filled in.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -181,7 +180,7 @@ public class AddAssetFragment extends Fragment {
 
         Asset asset = new Asset(0, name, description, barcode, price, LocalDateTime.now(), employeeName, location, assetPhotoUri);
 
-        // Execute the database insertion on a separate thread
+
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
             @Override
@@ -192,7 +191,7 @@ public class AddAssetFragment extends Fragment {
                 assetInfos.add(AssetInfoListManager.createAssetInfo(asset));
                 getActivity().runOnUiThread(() -> {
                     clearFields();
-                    Toast.makeText(getContext(), "Asset " + name + " added.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Asset '" + name + "' added.", Toast.LENGTH_SHORT).show();
                 });
             }
         });

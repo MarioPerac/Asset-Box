@@ -1,5 +1,7 @@
 package org.unibl.etf.mr.assetbox.ui.censuslists;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -19,6 +21,10 @@ import android.widget.TextView;
 
 import org.unibl.etf.mr.assetbox.R;
 import org.unibl.etf.mr.assetbox.assetsdb.AssetDatabase;
+import org.unibl.etf.mr.assetbox.assetsdb.dao.AssetDAO;
+import org.unibl.etf.mr.assetbox.assetsdb.dao.CensusListDAO;
+import org.unibl.etf.mr.assetbox.model.AssetInfo;
+import org.unibl.etf.mr.assetbox.model.AssetInfoListManager;
 import org.unibl.etf.mr.assetbox.model.CensusList;
 import org.unibl.etf.mr.assetbox.model.CensusListsManager;
 import org.unibl.etf.mr.assetbox.model.Item;
@@ -31,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class CensusListsFragment extends Fragment {
 
@@ -64,7 +71,7 @@ public class CensusListsFragment extends Fragment {
         root = inflater.inflate(R.layout.fragment_census_lists, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new CensusListsRecyclerViewAdapter(filteredLists, this::onListClick);
+        adapter = new CensusListsRecyclerViewAdapter(filteredLists, this::onListClick, this::onDeleteButtonClick);
         recyclerView.setAdapter(adapter);
 
         Spinner searchCategorySpinner = root.findViewById(R.id.search_category_spinner);
@@ -142,5 +149,53 @@ public class CensusListsFragment extends Fragment {
             }
         }
         adapter.notifyDataSetChanged();
+    }
+
+    public void onDeleteButtonClick(View view, CensusList censusList) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Confirm Deletion");
+        builder.setMessage("Are you sure you want to delete this census list?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteCensusList(censusList);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void deleteCensusList(CensusList censusList) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                CensusListDAO censusListDAO = AssetDatabase.getInstance(getContext()).getCensuslistDAO();
+                censusListDAO.delete(censusList);
+
+                getActivity().runOnUiThread(() -> {
+                    CensusListsManager.getInstance().removeCensusList(censusList);
+                    filteredLists.remove(censusList);
+                    adapter.notifyDataSetChanged();
+                    setEmptyListMessage();
+                });
+            }
+        });
+    }
+
+    private void setEmptyListMessage() {
+        TextView emptyListMessage = root.findViewById(R.id.emptyListMessage);
+        if (filteredLists.isEmpty()) {
+            emptyListMessage.setVisibility(View.VISIBLE);
+        } else {
+            emptyListMessage.setVisibility(View.GONE);
+        }
     }
 }

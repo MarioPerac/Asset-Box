@@ -1,175 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    android:layout_marginBottom="@dimen/small_margin">
 
-    <androidx.cardview.widget.CardView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/small_margin">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/small_margin"
-            android:layout_marginTop="@dimen/small_margin"
+        <ImageView
+            android:id="@+id/assetImageView"
+            android:layout_width="@dimen/small_image"
+            android:layout_height="@dimen/small_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/assetNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_starting_text"
+            app:layout_constraintStart_toEndOf="@id/assetImageView"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/small_margin"
-            android:layout_marginEnd="@dimen/small_margin">
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-            <ImageView
-                android:id="@+id/assetImageView"
-                android:layout_width="50pt"
-                android:layout_height="50pt"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/assetName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/assetNameText"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-            <!-- First LinearLayout: assetName -->
-            <LinearLayout
-                android:id="@+id/firstLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/assetImageView"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp">
+        <TextView
+            android:id="@+id/oldAssetEmployeeNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/employee_starting_text"
+            app:layout_constraintStart_toEndOf="@id/assetImageView"
+            app:layout_constraintTop_toBottomOf="@id/assetName"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-                <TextView
-                    android:id="@+id/assetNameText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/name_starting_text" />
+        <TextView
+            android:id="@+id/oldAssetEmployeeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/oldAssetEmployeeNameText"
+            app:layout_constraintTop_toBottomOf="@id/assetName"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-                <TextView
-                    android:id="@+id/assetName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/newAssetEmployeeNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/employee_starting_text"
+            app:layout_constraintStart_toEndOf="@id/assetImageView"
+            app:layout_constraintTop_toBottomOf="@id/oldAssetEmployeeName"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-            <!-- Second LinearLayout: oldAssetEmployeeName -->
-            <LinearLayout
-                android:id="@+id/secondLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/assetImageView"
-                app:layout_constraintTop_toBottomOf="@id/firstLinearLayout"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp">
+        <TextView
+            android:id="@+id/newAssetEmployeeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/newAssetEmployeeNameText"
+            app:layout_constraintTop_toBottomOf="@id/oldAssetEmployeeName"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-                <TextView
-                    android:id="@+id/oldAssetEmployeeNameText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/employee_starting_text" />
+        <TextView
+            android:id="@+id/oldAssetLocationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/old_location_starting_text"
+            app:layout_constraintStart_toEndOf="@id/assetImageView"
+            app:layout_constraintTop_toBottomOf="@id/newAssetEmployeeName"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-                <TextView
-                    android:id="@+id/oldAssetEmployeeName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/oldAssetLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/oldAssetLocationText"
+            app:layout_constraintTop_toBottomOf="@id/newAssetEmployeeName"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-            <!-- Third LinearLayout: newAssetEmployeeName -->
-            <LinearLayout
-                android:id="@+id/thirdLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/assetImageView"
-                app:layout_constraintTop_toBottomOf="@id/secondLinearLayout"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp">
+        <TextView
+            android:id="@+id/newAssetLocationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_location_starting_text"
+            app:layout_constraintStart_toEndOf="@id/assetImageView"
+            app:layout_constraintTop_toBottomOf="@id/oldAssetLocation"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-                <TextView
-                    android:id="@+id/newAssetEmployeeNameText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/employee_starting_text" />
+        <TextView
+            android:id="@+id/newAssetLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/newAssetLocationText"
+            app:layout_constraintTop_toBottomOf="@id/oldAssetLocation"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-                <TextView
-                    android:id="@+id/newAssetEmployeeName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/assetCreationDateTimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/created_starting_text"
+            app:layout_constraintStart_toEndOf="@id/assetImageView"
+            app:layout_constraintTop_toBottomOf="@id/newAssetLocation"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-            <!-- Fourth LinearLayout: oldAssetLocation -->
-            <LinearLayout
-                android:id="@+id/fourthLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/assetImageView"
-                app:layout_constraintTop_toBottomOf="@id/thirdLinearLayout"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp">
+        <TextView
+            android:id="@+id/assetCreationDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/assetCreationDateTimeText"
+            app:layout_constraintTop_toBottomOf="@id/newAssetLocation"
+            android:layout_marginStart="@dimen/extra_small_margin"
+            android:layout_marginTop="@dimen/extra_small_margin" />
 
-                <TextView
-                    android:id="@+id/oldAssetLocationText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/old_location_starting_text" />
-
-                <TextView
-                    android:id="@+id/oldAssetLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
-
-            <!-- Fifth LinearLayout: newAssetLocation -->
-            <LinearLayout
-                android:id="@+id/fifthLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/assetImageView"
-                app:layout_constraintTop_toBottomOf="@id/fourthLinearLayout"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:id="@+id/newAssetLocationText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/new_location_starting_text" />
-
-                <TextView
-                    android:id="@+id/newAssetLocation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
-
-            <!-- Sixth LinearLayout: assetCreationDateTime -->
-            <LinearLayout
-                android:id="@+id/sixthLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/assetImageView"
-                app:layout_constraintTop_toBottomOf="@id/fifthLinearLayout"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp">
-
-                <TextView
-                    android:id="@+id/assetCreationDateTimeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/created_starting_text" />
-
-                <TextView
-                    android:id="@+id/assetCreationDateTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

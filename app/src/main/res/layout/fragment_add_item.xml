@@ -47,6 +47,8 @@
                 android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/extra_small_margin"
                 app:layout_constraintStart_toEndOf="@id/textViewNameStarting"
                 app:layout_constraintTop_toBottomOf="@id/imageViewAsset" />
 
@@ -56,12 +58,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/created_starting_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewNameStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewName" />
 
             <TextView
                 android:id="@+id/textViewCreationDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/extra_small_margin"
                 app:layout_constraintStart_toEndOf="@id/textViewCreationDateTimeStarting"
                 app:layout_constraintTop_toBottomOf="@id/textViewNameStarting" />
 
@@ -72,15 +76,17 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/description_starting_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewCreationDateTimeStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewCreationDateTime" />
 
 
             <TextView
                 android:id="@+id/textViewDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/extra_small_margin"
                 app:layout_constraintStart_toEndOf="@id/textViewDescriptionStarting"
-                app:layout_constraintTop_toBottomOf="@id/textViewCreationDateTimeStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewCreationDateTime" />
 
             <TextView
                 android:id="@+id/textViewBarcodeStarting"
@@ -88,14 +94,16 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/barcode_starting_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewDescriptionStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewDescription" />
 
             <TextView
                 android:id="@+id/textViewBarcode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/extra_small_margin"
                 app:layout_constraintStart_toEndOf="@id/textViewBarcodeStarting"
-                app:layout_constraintTop_toBottomOf="@id/textViewDescriptionStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewDescription" />
 
             <TextView
                 android:id="@+id/textViewPriceStarting"
@@ -103,12 +111,14 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/price_starting_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewBarcodeStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewBarcode" />
 
             <TextView
                 android:id="@+id/textViewPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/extra_small_margin"
                 app:layout_constraintStart_toEndOf="@id/textViewPriceStarting"
                 app:layout_constraintTop_toBottomOf="@id/textViewBarcode" />
 
@@ -118,14 +128,16 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/employee_starting_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewPriceStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
 
             <TextView
                 android:id="@+id/textViewEmployeeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/extra_small_margin"
                 app:layout_constraintStart_toEndOf="@id/textViewEmployeeNameStarting"
-                app:layout_constraintTop_toBottomOf="@id/textViewPriceStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
 
             <EditText
                 android:id="@+id/newEmployeeName"
@@ -133,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/new_employee_name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewEmployeeNameStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewEmployeeName" />
 
 
             <TextView
@@ -148,6 +160,8 @@
                 android:id="@+id/textViewLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/extra_small_margin"
                 app:layout_constraintStart_toEndOf="@id/textViewLocationStarting"
                 app:layout_constraintTop_toBottomOf="@id/newEmployeeName" />
 
@@ -157,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/new_location"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewLocationStarting" />
+                app:layout_constraintTop_toBottomOf="@id/textViewLocation" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

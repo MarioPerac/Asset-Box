@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class AssetInfoListManager {
 
@@ -64,6 +65,14 @@ public class AssetInfoListManager {
 
 
         return assetInfo;
+    }
+
+    public void deleteByEmployeeName(String name) {
+        assetInfoList = assetInfoList.stream().filter(a -> !a.getEmployeeName().equals(name)).collect(Collectors.toList());
+    }
+
+    public void deleteByLocation(String name) {
+        assetInfoList = assetInfoList.stream().filter(a -> !a.getLocation().equals(name)).collect(Collectors.toList());
     }
 
     public void updateAssetInfo(AssetInfo assetInfo) {

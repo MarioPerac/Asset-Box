@@ -133,7 +133,10 @@ public class EditAssetFragment extends Fragment {
         editTextBarcode.setText(String.valueOf(asset.getBarcode()));
         editTextPrice.setText(String.valueOf(asset.getPrice()));
         editTextLocation.setText(asset.getLocation());
-        assetImage.setImageURI(Uri.parse(asset.getImagePath()));
+        if (asset.getImagePath() != null && !asset.getImagePath().isEmpty())
+            assetImage.setImageURI(Uri.parse(asset.getImagePath()));
+        else
+            assetImage.setImageResource(R.drawable.box_add_asset_icon);
         assetPhotoUri = asset.getImagePath();
 
 

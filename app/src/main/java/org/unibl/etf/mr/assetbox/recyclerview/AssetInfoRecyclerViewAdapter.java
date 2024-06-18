@@ -46,7 +46,10 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
     public void onBindViewHolder(final AssetInfoRecyclerViewAdapter.ViewHolder holder, int position) {
         final AssetInfo assetInfo = assetsInfo.get(position);
         holder.assetName.setText(assetInfo.getName());
-        holder.assetIcon.setImageURI(Uri.parse(assetInfo.getImagePath()));
+        if (assetInfo.getImagePath() != null && !assetInfo.getImagePath().isEmpty())
+            holder.assetIcon.setImageURI(Uri.parse(assetInfo.getImagePath()));
+        else
+            holder.assetIcon.setImageResource(R.drawable.box_add_asset_icon);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         holder.assetCreationDateTime.setText(assetInfo.getCreationDate().format(formatter));

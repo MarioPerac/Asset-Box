@@ -27,10 +27,10 @@
     <string name="find">Find</string>
     <string name="no_items">No items</string>
     <string name="cancel">Cancel</string>
-    <string name="name_starting_text">Name:\u00A0</string>
-    <string name="employee_starting_text">Employee:\u00A0</string>
-    <string name="created_starting_text">Created at:\u00A0</string>
-    <string name="location_starting_text">Location:\u00A0</string>
+    <string name="name_starting_text">Name:</string>
+    <string name="employee_starting_text">Employee:</string>
+    <string name="created_starting_text">Created at:</string>
+    <string name="location_starting_text">Location:</string>
     <string name="old_location_starting_text">Old Location:</string>
     <string name="new_location_starting_text">New Location:</string>
     <string name="description_starting_text">Description:</string>

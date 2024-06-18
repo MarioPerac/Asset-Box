@@ -74,8 +74,10 @@ public class AddItemFragment extends Fragment {
         editTextNewEmployeeName = root.findViewById(R.id.newEmployeeName);
         editTextNewLocation = root.findViewById(R.id.newLocation);
         buttonEdit = root.findViewById(R.id.buttonEdit);
-
-        image.setImageURI(Uri.parse(asset.getImagePath()));
+        if (asset.getImagePath() != null && !asset.getImagePath().isEmpty())
+            image.setImageURI(Uri.parse(asset.getImagePath()));
+        else
+            image.setImageResource(R.drawable.box_add_asset_icon);
         name.setText(asset.getName());
         creationDate.setText(asset.getCreationDate().toString());
         description.setText(asset.getDescription());

@@ -1,6 +1,8 @@
 package org.unibl.etf.mr.assetbox.ui.assets;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -26,6 +28,10 @@ import org.unibl.etf.mr.assetbox.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetbox.model.Asset;
 import org.unibl.etf.mr.assetbox.model.AssetInfoListManager;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -88,14 +94,19 @@ public class AssetDetailsFragment extends Fragment {
         buttonDelete = root.findViewById(R.id.buttonDelete);
         buttonViewLocation = root.findViewById(R.id.buttonViewLocation);
 
-        image.setImageURI(Uri.parse(asset.getImagePath()));
+        if (asset.getImagePath() != null && !asset.getImagePath().isEmpty())
+            image.setImageURI(Uri.parse(asset.getImagePath()));
+        else
+            image.setImageResource(R.drawable.box_add_asset_icon);
         name.setText(asset.getName());
-        creationDate.setText(asset.getCreationDate().toString());
-        description.setText(asset.getDescription());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        creationDate.setText(dtf.format(asset.getCreationDate()));
+        if (asset.getDescription() != null && !asset.getDescription().isEmpty())
+            description.setText(asset.getDescription());
         price.setText(String.valueOf(asset.getPrice()));
         location.setText(asset.getLocation());
         employeeName.setText(asset.getEmployeeName());
-
+        barcode.setText(String.valueOf(asset.getBarcode()));
 
         buttonEdit.setOnClickListener(this::onEditClick);
         buttonDelete.setOnClickListener(this::onDeleteClick);
@@ -118,6 +129,26 @@ public class AssetDetailsFragment extends Fragment {
 
     private void onDeleteClick(View view) {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Confirm Deletion");
+        builder.setMessage("Are you sure you want to delete this asset?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteAsset();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
+    }
+
+    private void deleteAsset() {
         assetInfoManager.deleteAssetInfo(asset.getId());
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -125,10 +156,20 @@ public class AssetDetailsFragment extends Fragment {
             @Override
             public void run() {
                 assetDAO.delete(asset);
+                deleteImage(asset.getImagePath());
+
             }
         });
 
         Navigation.findNavController(root).navigateUp();
+    }
+
+    private boolean deleteImage(String imagePath) {
+        if (imagePath != null && !imagePath.isEmpty()) {
+            File file = new File(imagePath);
+            return file.delete();
+        }
+        return false;
     }
 
     private void onViewLocationButtonClick(View view) {

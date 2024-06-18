@@ -29,6 +29,7 @@ public interface AssetDAO {
     @Delete
     void delete(Asset asset);
 
+
     @Delete
     void deleteAssets(Asset... assets);
 
@@ -46,4 +47,18 @@ public interface AssetDAO {
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME_ASSETS + " WHERE barcode = :barcode")
     Asset getByBarcode(long barcode);
+
+    @Query("DELETE FROM " + Constants.TABLE_NAME_ASSETS + " WHERE employee_name=:name")
+    void deleteAllEmployeeAssets(String name);
+
+    @Query("DELETE FROM " + Constants.TABLE_NAME_ASSETS + " WHERE location=:name")
+    void deleteAllAssetsByLocation(String name);
+
+
+    @Query("SELECT image_path FROM " + Constants.TABLE_NAME_ASSETS + " WHERE location=:name")
+    List<String> getAllAssetsImagePathsByLocation(String name);
+
+    @Query("SELECT image_path FROM " + Constants.TABLE_NAME_ASSETS + " WHERE employee_name=:name")
+    List<String> getAllEmployeeAssetsImagePaths(String name);
+    
 }

@@ -46,7 +46,10 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
     @Override
     public void onBindViewHolder(@NonNull ItemsRecyclerViewAdapter.ViewHolder holder, int position) {
         final Item item = items.get(position);
-        holder.assetImageView.setImageURI(Uri.parse(item.getAsset().getImagePath()));
+        if (item.getAsset().getImagePath() != null && !item.getAsset().getImagePath().isEmpty())
+            holder.assetImageView.setImageURI(Uri.parse(item.getAsset().getImagePath()));
+        else
+            holder.assetImageView.setImageResource(R.drawable.box_add_asset_icon);
         holder.assetName.setText(item.getAsset().getName());
         holder.oldAssetEmployeeName.setText(item.getCurrentEmployeeName());
         holder.newAssetEmployeeName.setText(item.getNewEmployeeName());

@@ -3,6 +3,7 @@ package org.unibl.etf.mr.assetbox.recyclerview;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,15 +19,26 @@ public class CensusListsRecyclerViewAdapter extends RecyclerView.Adapter<CensusL
 
     List<CensusList> lists;
 
-    private CensusListsRecyclerViewAdapter.OnListClickListener listener;
+    private CensusListsRecyclerViewAdapter.OnListClickListener onListClickListener;
+    private OnDeleteButtonClickListener onDeleteButtonClickListener;
 
     public interface OnListClickListener {
         void onListClick(View view, CensusList censusList);
     }
 
-    public CensusListsRecyclerViewAdapter(List<CensusList> lists, OnListClickListener listener) {
+    public interface OnDeleteButtonClickListener {
+        void onDeleteButtonClick(View view, CensusList censusList);
+    }
+
+    public CensusListsRecyclerViewAdapter(List<CensusList> lists, OnListClickListener onListClickListener) {
         this.lists = lists;
-        this.listener = listener;
+        this.onListClickListener = onListClickListener;
+    }
+
+    public CensusListsRecyclerViewAdapter(List<CensusList> lists, OnListClickListener onListClickListener, OnDeleteButtonClickListener onDeleteButtonClickListener) {
+        this.lists = lists;
+        this.onListClickListener = onListClickListener;
+        this.onDeleteButtonClickListener = onDeleteButtonClickListener;
     }
 
     @NonNull
@@ -48,9 +60,13 @@ public class CensusListsRecyclerViewAdapter extends RecyclerView.Adapter<CensusL
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onListClick(v, censusList);
+                onListClickListener.onListClick(v, censusList);
             }
         });
+
+        if (onDeleteButtonClickListener != null)
+            holder.buttonDelete.setOnClickListener((View v) -> onDeleteButtonClickListener.onDeleteButtonClick(v, censusList));
+
     }
 
     @Override
@@ -64,11 +80,13 @@ public class CensusListsRecyclerViewAdapter extends RecyclerView.Adapter<CensusL
         TextView name;
         TextView creationDateTime;
 
+        Button buttonDelete;
 
         public ViewHolder(View view) {
             super(view);
             name = view.findViewById(R.id.name);
             creationDateTime = view.findViewById(R.id.date);
+            buttonDelete = view.findViewById(R.id.buttonDelete);
         }
 
 
