@@ -76,15 +76,15 @@ public class LocationsFragment extends Fragment {
     private void onDeleteClick(View view, String name) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Confirm Deletion");
-        builder.setMessage("Are you sure you want to delete this location?\nNote: All associated assets will be deleted.");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.confirm_deletion);
+        builder.setMessage(R.string.confirm_delete_location);
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteLocation(name);
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

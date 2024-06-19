@@ -44,6 +44,24 @@
     <string name="new_employee_name">New Employee Name</string>
     <string name="new_location">New Location</string>
     <string name="census_list_name">Census List Name</string>
+    <string name="error_occurred">Error occurred!</string>
+    <string name="add_button_click_empty_field">All fields except Description and Image must be filled in.</string>
+    <string name="asset_added">"Asset added.</string>
+    <string name="scan_barcode">Scan a barcode.</string>
+    <string name="google_maps_unavailable_message">Google maps unavailable.</string>
+    <string name="confirm_deletion">Confirm Deletion</string>
+    <string name="are_you_sure_delete_asset">Are you sure you want to delete this asset?</string>
+    <string name="are_you_sure_delete_census_list">Are you sure you want to delete this census list?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="asset_details_updates">Asset details updated.</string>
+    <string name="asset_details_not_updates">Asset details not updated.</string>
+    <string name="please_enter_list_name">Please enter a list name.</string>
+    <string name="census_list_added">Census list added.</string>
+    <string name="please_enter_barcode">Please enter a barcode.</string>
+    <string name="no_asset_found_with_barcode">No asset found with this barcode.</string>
+    <string name="confirm_delete_employee">Are you sure you want to delete this employee?\nNote: All his assets will be deleted.</string>
+    <string name="confirm_delete_location">Are you sure you want to delete this location?\nNote: All associated assets will be deleted.</string>
     <string-array name="search_categories">
         <item>Name</item>
         <item>Date</item>

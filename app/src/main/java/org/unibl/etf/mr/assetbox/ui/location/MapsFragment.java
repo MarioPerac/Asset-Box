@@ -39,7 +39,7 @@ public class MapsFragment extends Fragment {
             Address address = getAddress(location);
             if (location != null && address != null) {
                 LatLng city = new LatLng(address.getLatitude(), address.getLongitude());
-                googleMap.addMarker(new MarkerOptions().position(city).title("Marker in " + location));
+                googleMap.addMarker(new MarkerOptions().position(city));
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(city, 10));
                 googleMap.getUiSettings().setZoomControlsEnabled(true);
                 googleMap.setOnMarkerClickListener(marker -> {

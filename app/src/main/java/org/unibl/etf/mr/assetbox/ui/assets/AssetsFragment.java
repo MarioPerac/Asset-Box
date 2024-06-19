@@ -24,6 +24,7 @@ import org.unibl.etf.mr.assetbox.model.Asset;
 import org.unibl.etf.mr.assetbox.model.AssetInfo;
 import org.unibl.etf.mr.assetbox.model.AssetInfoListManager;
 import org.unibl.etf.mr.assetbox.recyclerview.AssetInfoRecyclerViewAdapter;
+import org.unibl.etf.mr.assetbox.util.Constants;
 import org.unibl.etf.mr.assetbox.util.SearchCategories;
 
 import java.time.format.DateTimeFormatter;
@@ -130,7 +131,7 @@ public class AssetsFragment extends Fragment {
         if (TextUtils.isEmpty(query)) {
             filteredAssetInfoList.addAll(assetInfoList);
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
             for (AssetInfo assetInfo : assetInfoList) {
                 if (currentSearchCategory.equals(SearchCategories.Name.toString()) && assetInfo.getName().toLowerCase().contains(query.toLowerCase())) {
                     filteredAssetInfoList.add(assetInfo);

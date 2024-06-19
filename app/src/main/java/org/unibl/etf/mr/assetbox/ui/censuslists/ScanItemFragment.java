@@ -69,7 +69,6 @@ public class ScanItemFragment extends Fragment {
 
     public void onScanButtonClick(View view) {
         ScanOptions options = new ScanOptions();
-        options.setPrompt("Scan a barcode");
         options.setOrientationLocked(false);
         options.setBeepEnabled(false);
         barcodeLauncher.launch(options);
@@ -80,17 +79,12 @@ public class ScanItemFragment extends Fragment {
 
 
         if (barcodeString.isEmpty()) {
-            Toast.makeText(getContext(), "Please enter a barcode.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_enter_barcode, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        long barcode;
-        try {
-            barcode = Long.parseLong(barcodeString);
-        } catch (NumberFormatException e) {
-            Toast.makeText(getContext(), "Invalid barcode format.", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        long barcode = Long.parseLong(barcodeString);
+
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.execute(new Runnable() {
@@ -99,7 +93,7 @@ public class ScanItemFragment extends Fragment {
                 Asset asset = AssetDatabase.getInstance(getContext()).getAssetDAO().getByBarcode(barcode);
                 getActivity().runOnUiThread(() -> {
                     if (asset == null) {
-                        Toast.makeText(getContext(), "No asset found with barcode: " + barcode, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.no_asset_found_with_barcode, Toast.LENGTH_SHORT).show();
                     } else {
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("asset", asset);

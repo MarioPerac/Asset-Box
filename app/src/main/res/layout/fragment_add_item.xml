@@ -139,8 +139,8 @@
                 app:layout_constraintStart_toEndOf="@id/textViewEmployeeNameStarting"
                 app:layout_constraintTop_toBottomOf="@id/textViewPrice" />
 
-            <EditText
-                android:id="@+id/newEmployeeName"
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextViewNewEmployeeName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/new_employee_name"
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/location_starting_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/newEmployeeName" />
+                app:layout_constraintTop_toBottomOf="@id/autoCompleteTextViewNewEmployeeName" />
 
             <TextView
                 android:id="@+id/textViewLocation"
@@ -163,10 +163,10 @@
                 android:textColor="@color/black"
                 android:layout_marginStart="@dimen/extra_small_margin"
                 app:layout_constraintStart_toEndOf="@id/textViewLocationStarting"
-                app:layout_constraintTop_toBottomOf="@id/newEmployeeName" />
+                app:layout_constraintTop_toBottomOf="@id/autoCompleteTextViewNewEmployeeName" />
 
-            <EditText
-                android:id="@+id/newLocation"
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextViewNewLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/new_location"

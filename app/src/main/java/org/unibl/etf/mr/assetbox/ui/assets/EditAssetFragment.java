@@ -96,12 +96,9 @@ public class EditAssetFragment extends Fragment {
                                     Uri fileUri = data.getData();
                                     assetPhotoUri = fileUri.toString();
                                     assetImage.setImageURI(fileUri);
-                                    Log.d("tag", fileUri.toString());
                                 }
                             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                                 Toast.makeText(getActivity(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getActivity(), "Task Cancelled", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -160,14 +157,11 @@ public class EditAssetFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-
-                Log.d("tag", new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "ImagePicker").toString());
-
                 ImagePicker.with(getActivity())
                         .saveDir(new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "ImagePicker"))
                         .crop()                    //Crop image(Optional), Check Customization for more option
                         .compress(1024)            //Final image size will be less than 1 MB(Optional)
-                        .maxResultSize(500, 500)    //Final image resolution will be less than 1080 x 1080(Optional)
+                        .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
                         .createIntent(intent -> {
                             startForProfileImageResult.launch(intent);
                             return null;
@@ -185,16 +179,9 @@ public class EditAssetFragment extends Fragment {
     public void onSaveButtonClick(View view) {
         String name = editTextName.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
-        long barcode;
-        double price;
+        long barcode = Long.parseLong(editTextBarcode.getText().toString().trim());
+        double price = Double.parseDouble(editTextPrice.getText().toString().trim());
 
-        try {
-            barcode = Long.parseLong(editTextBarcode.getText().toString().trim());
-            price = Double.parseDouble(editTextPrice.getText().toString().trim());
-        } catch (NumberFormatException e) {
-            Toast.makeText(getContext(), "Invalid number format for barcode or price.", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         String employeeName = editTextEmployeeName.getText().toString().trim();
         String location = editTextLocation.getText().toString().trim();
@@ -242,17 +229,16 @@ public class EditAssetFragment extends Fragment {
                 }
             });
 
-            Toast.makeText(getContext(), "Asset details updated.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.asset_details_updates, Toast.LENGTH_SHORT).show();
             Navigation.findNavController(view).navigateUp();
         } else
-            Toast.makeText(getContext(), "Asset details not updated.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.asset_details_not_updates, Toast.LENGTH_SHORT).show();
 
 
     }
 
     public void onScanButtonClick(View view) {
         ScanOptions options = new ScanOptions();
-        options.setPrompt("Scan a barcode");
         options.setOrientationLocked(false);
         options.setBeepEnabled(false);
         barcodeLauncher.launch(options);

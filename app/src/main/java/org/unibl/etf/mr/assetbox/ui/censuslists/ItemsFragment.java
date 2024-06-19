@@ -19,6 +19,7 @@ import android.widget.TextView;
 import org.unibl.etf.mr.assetbox.R;
 import org.unibl.etf.mr.assetbox.model.Item;
 import org.unibl.etf.mr.assetbox.recyclerview.ItemsRecyclerViewAdapter;
+import org.unibl.etf.mr.assetbox.util.Constants;
 import org.unibl.etf.mr.assetbox.util.SearchCategories;
 
 import java.time.format.DateTimeFormatter;
@@ -113,7 +114,7 @@ public class ItemsFragment extends Fragment {
         if (TextUtils.isEmpty(query)) {
             filteredItems.addAll(items);
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
             for (Item item : items) {
                 if (currentSearchCategory.equals(SearchCategories.Name.toString()) && item.getAsset().getName().toLowerCase().contains(query.toLowerCase())) {
                     filteredItems.add(item);

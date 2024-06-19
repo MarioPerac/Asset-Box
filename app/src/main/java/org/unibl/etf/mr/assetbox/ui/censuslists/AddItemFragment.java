@@ -6,18 +6,34 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
+
+import org.unibl.etf.mr.assetbox.BuildConfig;
 import org.unibl.etf.mr.assetbox.R;
 import org.unibl.etf.mr.assetbox.model.Asset;
+import org.unibl.etf.mr.assetbox.model.AssetInfo;
+import org.unibl.etf.mr.assetbox.model.AssetInfoListManager;
 import org.unibl.etf.mr.assetbox.model.Item;
 import org.unibl.etf.mr.assetbox.model.ItemListManager;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class AddItemFragment extends Fragment {
@@ -36,12 +52,13 @@ public class AddItemFragment extends Fragment {
 
     private TextView barcode;
 
-    private EditText editTextNewEmployeeName;
-    private EditText editTextNewLocation;
+    private AutoCompleteTextView autoCompleteTextViewNewEmployeeName;
+    private AutoCompleteTextView autoCompleteTextViewNewLocation;
 
     private Button buttonEdit;
 
     private ItemListManager itemListManager;
+    private PlacesClient placesClient;
 
 
     public AddItemFragment() {
@@ -71,8 +88,8 @@ public class AddItemFragment extends Fragment {
         textViewLocation = root.findViewById(R.id.textViewLocation);
         textViewEmployeeName = root.findViewById(R.id.textViewEmployeeName);
         barcode = root.findViewById(R.id.textViewBarcode);
-        editTextNewEmployeeName = root.findViewById(R.id.newEmployeeName);
-        editTextNewLocation = root.findViewById(R.id.newLocation);
+        autoCompleteTextViewNewEmployeeName = root.findViewById(R.id.autoCompleteTextViewNewEmployeeName);
+        autoCompleteTextViewNewLocation = root.findViewById(R.id.autoCompleteTextViewNewLocation);
         buttonEdit = root.findViewById(R.id.buttonEdit);
         if (asset.getImagePath() != null && !asset.getImagePath().isEmpty())
             image.setImageURI(Uri.parse(asset.getImagePath()));
@@ -83,7 +100,39 @@ public class AddItemFragment extends Fragment {
         description.setText(asset.getDescription());
         price.setText(String.valueOf(asset.getPrice()));
         textViewLocation.setText(asset.getLocation());
+        barcode.setText(String.valueOf(asset.getBarcode()));
         textViewEmployeeName.setText(asset.getEmployeeName());
+
+
+        ArrayAdapter<String> adapterLocations = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line);
+        autoCompleteTextViewNewLocation.setAdapter(adapterLocations);
+
+        ArrayAdapter<String> adapterEmployeeNames = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line);
+        autoCompleteTextViewNewEmployeeName.setAdapter(adapterEmployeeNames);
+        adapterEmployeeNames.addAll(AssetInfoListManager.getInstance().getAll().stream().map(AssetInfo::getEmployeeName).distinct().collect(Collectors.toList()));
+
+        autoCompleteTextViewNewLocation.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // Do nothing
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 2) {
+                    getAutocompletePredictions(s.toString(), adapterLocations);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+        Places.initialize(getContext(), BuildConfig.MAPS_API_KEY);
+        placesClient = Places.createClient(getContext());
 
         buttonEdit.setOnClickListener(this::onEditButtonClick);
 
@@ -91,8 +140,8 @@ public class AddItemFragment extends Fragment {
     }
 
     public void onEditButtonClick(View view) {
-        String newEmployeeName = editTextNewEmployeeName.getText().toString().trim();
-        String newLocation = editTextNewLocation.getText().toString().trim();
+        String newEmployeeName = autoCompleteTextViewNewEmployeeName.getText().toString().trim();
+        String newLocation = autoCompleteTextViewNewLocation.getText().toString().trim();
 
         if (newEmployeeName.isEmpty()) {
             newEmployeeName = textViewEmployeeName.getText().toString();
@@ -107,6 +156,24 @@ public class AddItemFragment extends Fragment {
         ItemListManager.getInstance().addItem(item);
         Navigation.findNavController(view).navigateUp();
         Navigation.findNavController(view).navigateUp();
+    }
+
+    private void getAutocompletePredictions(String query, ArrayAdapter<String> adapter) {
+        FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
+                .setQuery(query)
+                .build();
+
+        placesClient.findAutocompletePredictions(request).addOnSuccessListener((response) -> {
+            List<String> predictionList = new ArrayList<>();
+            for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
+                predictionList.add(prediction.getFullText(null).toString());
+            }
+            adapter.clear();
+            adapter.addAll(predictionList);
+            adapter.notifyDataSetChanged();
+        }).addOnFailureListener((exception) -> {
+            exception.printStackTrace();
+        });
     }
 
 }

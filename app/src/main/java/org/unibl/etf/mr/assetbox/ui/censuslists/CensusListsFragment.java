@@ -21,14 +21,12 @@ import android.widget.TextView;
 
 import org.unibl.etf.mr.assetbox.R;
 import org.unibl.etf.mr.assetbox.assetsdb.AssetDatabase;
-import org.unibl.etf.mr.assetbox.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetbox.assetsdb.dao.CensusListDAO;
-import org.unibl.etf.mr.assetbox.model.AssetInfo;
-import org.unibl.etf.mr.assetbox.model.AssetInfoListManager;
 import org.unibl.etf.mr.assetbox.model.CensusList;
 import org.unibl.etf.mr.assetbox.model.CensusListsManager;
 import org.unibl.etf.mr.assetbox.model.Item;
 import org.unibl.etf.mr.assetbox.recyclerview.CensusListsRecyclerViewAdapter;
+import org.unibl.etf.mr.assetbox.util.Constants;
 import org.unibl.etf.mr.assetbox.util.SearchCategories;
 
 import java.io.Serializable;
@@ -37,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 public class CensusListsFragment extends Fragment {
 
@@ -136,7 +133,7 @@ public class CensusListsFragment extends Fragment {
         if (TextUtils.isEmpty(query)) {
             filteredLists.addAll(lists);
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
             for (CensusList censusList : lists) {
                 if (currentSearchCategory.equals(SearchCategories.Name.toString()) && censusList.getName().toLowerCase().contains(query.toLowerCase())) {
                     filteredLists.add(censusList);
@@ -154,15 +151,15 @@ public class CensusListsFragment extends Fragment {
     public void onDeleteButtonClick(View view, CensusList censusList) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Confirm Deletion");
-        builder.setMessage("Are you sure you want to delete this census list?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.confirm_deletion);
+        builder.setMessage(R.string.are_you_sure_delete_census_list);
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteCensusList(censusList);
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/small_margin">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,9 +32,10 @@
 
         <TextView
             android:id="@+id/assetName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/assetNameText"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/extra_small_margin"
@@ -53,9 +53,10 @@
 
         <TextView
             android:id="@+id/assetEmployeeName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/assetEmployeeNameText"
             app:layout_constraintTop_toBottomOf="@id/assetName"
             android:layout_marginStart="@dimen/extra_small_margin"
@@ -73,11 +74,12 @@
 
         <TextView
             android:id="@+id/assetLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/assetLocationText"
             app:layout_constraintTop_toBottomOf="@id/assetEmployeeName"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="@dimen/extra_small_margin"
             android:layout_marginTop="@dimen/extra_small_margin" />
 
@@ -93,9 +95,10 @@
 
         <TextView
             android:id="@+id/assetCreationDateTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/assetCreationDateTimeText"
             app:layout_constraintTop_toBottomOf="@id/assetLocation"
             android:layout_marginStart="@dimen/extra_small_margin"

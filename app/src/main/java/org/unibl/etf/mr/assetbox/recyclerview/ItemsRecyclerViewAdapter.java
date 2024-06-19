@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.unibl.etf.mr.assetbox.R;
 import org.unibl.etf.mr.assetbox.model.Item;
+import org.unibl.etf.mr.assetbox.util.Constants;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -55,7 +56,7 @@ public class ItemsRecyclerViewAdapter extends RecyclerView.Adapter<ItemsRecycler
         holder.newAssetEmployeeName.setText(item.getNewEmployeeName());
         holder.oldAssetLocation.setText(item.getCurrentLocation());
         holder.newAssetLocation.setText(item.getNewLocation());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
         holder.assetCreationDateTime.setText(item.getAsset().getCreationDate().format(formatter));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

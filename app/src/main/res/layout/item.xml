@@ -35,9 +35,10 @@
 
         <TextView
             android:id="@+id/assetName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/assetNameText"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="@dimen/extra_small_margin"
@@ -55,9 +56,10 @@
 
         <TextView
             android:id="@+id/oldAssetEmployeeName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/oldAssetEmployeeNameText"
             app:layout_constraintTop_toBottomOf="@id/assetName"
             android:layout_marginStart="@dimen/extra_small_margin"
@@ -75,9 +77,10 @@
 
         <TextView
             android:id="@+id/newAssetEmployeeName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/newAssetEmployeeNameText"
             app:layout_constraintTop_toBottomOf="@id/oldAssetEmployeeName"
             android:layout_marginStart="@dimen/extra_small_margin"
@@ -95,9 +98,10 @@
 
         <TextView
             android:id="@+id/oldAssetLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/oldAssetLocationText"
             app:layout_constraintTop_toBottomOf="@id/newAssetEmployeeName"
             android:layout_marginStart="@dimen/extra_small_margin"
@@ -115,9 +119,10 @@
 
         <TextView
             android:id="@+id/newAssetLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/newAssetLocationText"
             app:layout_constraintTop_toBottomOf="@id/oldAssetLocation"
             android:layout_marginStart="@dimen/extra_small_margin"
@@ -135,9 +140,10 @@
 
         <TextView
             android:id="@+id/assetCreationDateTime"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/assetCreationDateTimeText"
             app:layout_constraintTop_toBottomOf="@id/newAssetLocation"
             android:layout_marginStart="@dimen/extra_small_margin"

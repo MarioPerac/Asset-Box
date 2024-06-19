@@ -101,7 +101,7 @@ public class AddCensusListFragment extends Fragment {
         String listName = editTextCensusListName.getText().toString().trim();
 
         if (listName.isEmpty()) {
-            Toast.makeText(getContext(), "Please enter a list name.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_enter_list_name, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -140,7 +140,7 @@ public class AddCensusListFragment extends Fragment {
 
             getActivity().runOnUiThread(() -> {
                 clearFields();
-                Toast.makeText(getContext(), "Census list '" + listName + "' added.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.census_list_added, Toast.LENGTH_SHORT).show();
             });
         });
     }

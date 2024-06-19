@@ -27,6 +27,7 @@ import org.unibl.etf.mr.assetbox.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetbox.assetsdb.dao.AssetDAO;
 import org.unibl.etf.mr.assetbox.model.Asset;
 import org.unibl.etf.mr.assetbox.model.AssetInfoListManager;
+import org.unibl.etf.mr.assetbox.util.Constants;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -99,7 +100,7 @@ public class AssetDetailsFragment extends Fragment {
         else
             image.setImageResource(R.drawable.box_add_asset_icon);
         name.setText(asset.getName());
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
         creationDate.setText(dtf.format(asset.getCreationDate()));
         if (asset.getDescription() != null && !asset.getDescription().isEmpty())
             description.setText(asset.getDescription());
@@ -114,7 +115,7 @@ public class AssetDetailsFragment extends Fragment {
             buttonViewLocation.setOnClickListener(this::onViewLocationButtonClick);
         } else {
             buttonViewLocation.setEnabled(false);
-            Toast.makeText(getContext(), "Google maps unavailable.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.google_maps_unavailable_message, Toast.LENGTH_SHORT).show();
         }
 
         return root;
@@ -130,15 +131,15 @@ public class AssetDetailsFragment extends Fragment {
     private void onDeleteClick(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Confirm Deletion");
-        builder.setMessage("Are you sure you want to delete this asset?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.confirm_deletion);
+        builder.setMessage(R.string.are_you_sure_delete_asset);
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 deleteAsset();
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -180,7 +181,7 @@ public class AssetDetailsFragment extends Fragment {
             Navigation.findNavController(view).navigate(R.id.action_assetDetailsFragment_to_mapsFragment, bundle);
         } else {
             buttonViewLocation.setEnabled(false);
-            Toast.makeText(getContext(), "Google maps unavailable.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.google_maps_unavailable_message, Toast.LENGTH_SHORT).show();
         }
     }
 

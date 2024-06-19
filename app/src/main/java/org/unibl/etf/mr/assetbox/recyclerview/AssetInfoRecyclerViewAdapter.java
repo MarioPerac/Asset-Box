@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.unibl.etf.mr.assetbox.R;
 import org.unibl.etf.mr.assetbox.model.AssetInfo;
+import org.unibl.etf.mr.assetbox.util.Constants;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -51,7 +52,7 @@ public class AssetInfoRecyclerViewAdapter extends RecyclerView.Adapter<AssetInfo
         else
             holder.assetIcon.setImageResource(R.drawable.box_add_asset_icon);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
         holder.assetCreationDateTime.setText(assetInfo.getCreationDate().format(formatter));
 
         holder.assetEmployeeName.setText(assetInfo.getEmployeeName());

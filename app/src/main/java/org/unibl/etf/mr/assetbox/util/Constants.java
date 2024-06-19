@@ -9,4 +9,5 @@ final public class Constants {
 
     public static final String TABLE_NAME_CENSUS_LISTS = "census_lists";
     public static final String DB_NAME = "assetsdb";
+    public static final String DATE_TIME_FORMAT = "dd.MM.yyyy HH:mm";
 }
