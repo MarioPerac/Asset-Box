@@ -10,7 +10,7 @@
     <View
         android:id="@+id/top_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="120dp"
         android:background="@drawable/home_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +22,8 @@
         android:layout_marginTop="@dimen/small_margin"
         android:layout_marginLeft="@dimen/medium_margin"
         android:layout_marginRight="@dimen/medium_margin"
-        android:rowCount="2"
-        android:columnCount="2">
+        android:rowCount="1"
+        android:columnCount="4">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/assetCard"
@@ -57,7 +57,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="@string/assets_card"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/small_text"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -70,8 +70,8 @@
             android:layout_columnWeight="1"
             app:cardElevation="12dp"
             android:layout_margin="@dimen/small_margin"
-            android:layout_row="1"
-            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_column="1"
             android:foreground="?attr/selectableItemBackground">
 
             <LinearLayout
@@ -92,7 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/employees_card"
-                    android:textSize="@dimen/small_text"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_gravity="center_horizontal" />
@@ -108,7 +108,7 @@
             app:cardElevation="12dp"
             android:layout_margin="@dimen/small_margin"
             android:layout_row="0"
-            android:layout_column="1"
+            android:layout_column="2"
             android:foreground="?attr/selectableItemBackground">
 
             <LinearLayout
@@ -131,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/locations_card"
-                    android:textSize="@dimen/small_text"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_gravity="center_horizontal" />
@@ -146,8 +146,8 @@
             android:layout_columnWeight="1"
             app:cardElevation="12dp"
             android:layout_margin="@dimen/small_margin"
-            android:layout_row="1"
-            android:layout_column="1"
+            android:layout_row="0"
+            android:layout_column="3"
             android:foreground="?attr/selectableItemBackground">
 
             <LinearLayout
@@ -168,7 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/census_list_card"
-                    android:textSize="@dimen/small_text"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:layout_gravity="center_horizontal" />

@@ -76,7 +76,7 @@ public class AddAssetFragment extends Fragment {
     private ActivityResultLauncher<Intent> startForProfileImageResult;
 
     private PlacesClient placesClient;
-
+    private ArrayAdapter<String> adapterEmployeeNames;
     private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
             result -> {
                 if (result.getContents() != null) {
@@ -139,7 +139,7 @@ public class AddAssetFragment extends Fragment {
         ArrayAdapter<String> adapterLocations = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteTextViewLocation.setAdapter(adapterLocations);
 
-        ArrayAdapter<String> adapterEmployeeNames = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line);
+        adapterEmployeeNames = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line);
         autoCompleteTextViewEmployeeName.setAdapter(adapterEmployeeNames);
         adapterEmployeeNames.addAll(AssetInfoListManager.getInstance().getAll().stream().map(AssetInfo::getEmployeeName).distinct().collect(Collectors.toList()));
 
@@ -205,7 +205,7 @@ public class AddAssetFragment extends Fragment {
             Toast.makeText(getContext(), R.string.add_button_click_empty_field, Toast.LENGTH_SHORT).show();
             return;
         }
-        
+
         long barcode = Long.parseLong(barcodeString);
         double price = Double.parseDouble(priceString);
 
@@ -223,6 +223,7 @@ public class AddAssetFragment extends Fragment {
                 asset.setId(id);
                 List<AssetInfo> assetInfos = AssetInfoListManager.getInstance().getAll();
                 assetInfos.add(AssetInfoListManager.createAssetInfo(asset));
+                adapterEmployeeNames.addAll(AssetInfoListManager.getInstance().getAll().stream().map(AssetInfo::getEmployeeName).distinct().collect(Collectors.toList()));
                 getActivity().runOnUiThread(() -> {
                     clearFields();
                     Toast.makeText(getContext(), R.string.asset_added, Toast.LENGTH_SHORT).show();

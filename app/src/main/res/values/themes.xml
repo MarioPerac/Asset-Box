@@ -1,18 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.AssetLedger" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">#FEBB00</item>
-        <item name="colorPrimaryVariant">#fe9900</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">#42A5F5</item>
-        <item name="colorSecondaryVariant">#1976D2</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSurface">#FFFFFF</item>
-        <item name="colorOnSurface">@color/black</item>
-        <item name="android:windowBackground">#E3F2FD</item>
-        <item name="backgroundColor">#E3F2FD</item>
+        <!-- Include colors -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="backgroundColor">@color/backgroundColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -36,13 +35,12 @@
     </style>
 
     <style name="CustomRecyclerView">
-        <item name="backgroundColor">#E3F2FD</item>
-
+        <item name="backgroundColor">@color/backgroundColor</item>
     </style>
 
     <style name="CustomTextView" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">@dimen/small_text</item>
-        <item name="color">@color/black</item>
+        <item name="android:textColor">#FF000000</item>
     </style>
 
     <style name="CustomButton" parent="Widget.MaterialComponents.Button">

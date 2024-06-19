@@ -7,11 +7,31 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-    <color name="teal_300">#4db6ac</color>
-    <color name="teal_500">#009688</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="amber_300">#ffd54f</color>
-    <color name="amber_700">#ff9900</color>
     <color name="red_300">#E57373</color>
+
+    <color name="colorPrimary">#FEBB00</color>
+    <color name="colorPrimaryVariant">#fe9900</color>
+    <color name="colorSecondary">#42A5F5</color>
+    <color name="colorSecondaryVariant">#1976D2</color>
+    <color name="colorOnPrimary">#FF000000</color>
+    <color name="colorOnSecondary">#FFFFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#FF000000</color>
+    <color name="windowBackground">#E3F2FD</color>
+    <color name="backgroundColor">#E3F2FD</color>
+
+    <color name="colorPrimaryNight">#FFD180</color> <!-- Tamna nijansa boje za colorPrimary -->
+    <color name="colorPrimaryVariantNight">#FFAB40
+    </color> <!-- Tamna nijansa boje za colorPrimaryVariant -->
+    <color name="colorSecondaryNight">#26C6DA</color> <!-- Tamna nijansa boje za colorSecondary -->
+    <color name="colorSecondaryVariantNight">#00ACC1
+    </color> <!-- Tamna nijansa boje za colorSecondaryVariant -->
+    <color name="colorOnPrimaryNight">#FFFFFF
+    </color> <!-- Boja teksta koja se dobro vidi na colorPrimary -->
+    <color name="colorOnSecondaryNight">#FFFFFF
+    </color> <!-- Boja teksta koja se dobro vidi na colorSecondary -->
+    <color name="colorSurfaceNight">#424242</color> <!-- Boja površine -->
+    <color name="colorOnSurfaceNight">#FFFFFF</color> <!-- Boja teksta na površini -->
+    <color name="windowBackgroundNight">#212121</color> <!-- Pozadinska boja prozora -->
+    <color name="backgroundColorNight">#212121</color> <!-- Pozadinska boja -->
 </resources>

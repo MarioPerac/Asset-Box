@@ -1,14 +1,12 @@
 <resources>
     <string name="app_name">Asset Box</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="title_assets_list">Assets List</string>
+    <string name="title_add_asset">Add Asset</string>
     <string name="assets_card">Assets</string>
     <string name="locations_card">Locations</string>
     <string name="employees_card">Employees</string>
     <string name="census_list_card">Census Lists</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_assets_message">No assets yet</string>
     <string name="add_asset">Add asset</string>
     <string name="barcode">Barcode</string>
@@ -22,7 +20,6 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="save">save</string>
-    <string name="no_lists_yet">No lists yet</string>
     <string name="add_item">Add item</string>
     <string name="find">Find</string>
     <string name="no_items">No items</string>
@@ -38,7 +35,6 @@
     <string name="price_starting_text">Price:</string>
     <string name="or">OR</string>
     <string name="empty">Empty</string>
-    <string name="title_add_asset">Add asset</string>
     <string name="title_add_census_list">Add Census List</string>
     <string name="asset_image">Asset Image</string>
     <string name="new_employee_name">New Employee Name</string>
@@ -62,6 +58,19 @@
     <string name="no_asset_found_with_barcode">No asset found with this barcode.</string>
     <string name="confirm_delete_employee">Are you sure you want to delete this employee?\nNote: All his assets will be deleted.</string>
     <string name="confirm_delete_location">Are you sure you want to delete this location?\nNote: All associated assets will be deleted.</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="serbian">Serbian</string>
+    <string name="title_asset_details">Asset</string>
+    <string name="title_locations">Locations</string>
+    <string name="title_employees">Employees</string>
+    <string name="title_edit_asset">Edit Asset</string>
+    <string name="title_map">Map</string>
+    <string name="title_census_lists">Census Lists</string>
+    <string name="title_items">Items</string>
+    <string name="title_add_item">Add Item</string>
+    <string name="title_scan_item">Scan Item</string>
+    <string name="view_on_map">View on map</string>
     <string-array name="search_categories">
         <item>Name</item>
         <item>Date</item>

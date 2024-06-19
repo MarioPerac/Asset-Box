@@ -1,6 +1,9 @@
 package org.unibl.etf.mr.assetbox;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -10,10 +13,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import org.unibl.etf.mr.assetbox.util.LocaleHelper;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-
+    
     private AppBarConfiguration appBarConfiguration;
     private NavController navController;
 
@@ -44,16 +49,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.languages_menu, menu); // Inflate your menu
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_english) {
+            LocaleHelper.setLanguage(this, "en");
+            recreate();
+            return true;
+        } else if (id == R.id.action_serbian) {
+            LocaleHelper.setLanguage(this, "sr");
+            recreate();
+            return true;
+        } else if (id == android.R.id.home) {
             return NavigationUI.navigateUp(navController, appBarConfiguration);
+        } else {
+            return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, appBarConfiguration);
     }
-}
 
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase));
+    }
+}

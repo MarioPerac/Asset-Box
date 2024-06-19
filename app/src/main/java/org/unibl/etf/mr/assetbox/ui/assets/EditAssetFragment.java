@@ -213,7 +213,7 @@ public class EditAssetFragment extends Fragment {
             asset.setLocation(location);
             isEdited = true;
         }
-        if (assetPhotoUri != null && !asset.getImagePath().equals(imagePath)) {
+        if (assetPhotoUri != null && (asset.getImagePath() == null || !asset.getImagePath().equals(assetPhotoUri))) {
             asset.setImagePath(imagePath);
             isEdited = true;
         }
