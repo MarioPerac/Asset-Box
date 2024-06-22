@@ -32,6 +32,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         assetInfoManager = AssetInfoListManager.getInstance();
+       
         assetInfoManager.loadAssetInfoList(getContext());
         censusListsManager = CensusListsManager.getInstance();
         censusListsManager.loadCensusLists(getContext());

@@ -9,7 +9,10 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.os.Environment;
@@ -60,7 +63,7 @@ public class EditAssetFragment extends Fragment {
 
     EditText editTextLocation;
 
-    String assetPhotoUri;
+    private AssetViewModel assetViewModel;
 
     private ActivityResultLauncher<Intent> startForProfileImageResult;
 
@@ -82,7 +85,7 @@ public class EditAssetFragment extends Fragment {
             asset = (Asset) getArguments().getSerializable("asset");
             assetInfoManager = AssetInfoListManager.getInstance();
             assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
-
+            assetViewModel = new ViewModelProvider(this).get(AssetViewModel.class);
             startForProfileImageResult = registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
                     new ActivityResultCallback<ActivityResult>() {
@@ -94,8 +97,7 @@ public class EditAssetFragment extends Fragment {
                             if (resultCode == Activity.RESULT_OK) {
                                 if (data != null && data.getData() != null) {
                                     Uri fileUri = data.getData();
-                                    assetPhotoUri = fileUri.toString();
-                                    assetImage.setImageURI(fileUri);
+                                    assetViewModel.setAssetPhotoUri(fileUri.toString());
                                 }
                             } else if (resultCode == ImagePicker.RESULT_ERROR) {
                                 Toast.makeText(getActivity(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show();
@@ -130,11 +132,11 @@ public class EditAssetFragment extends Fragment {
         editTextBarcode.setText(String.valueOf(asset.getBarcode()));
         editTextPrice.setText(String.valueOf(asset.getPrice()));
         editTextLocation.setText(asset.getLocation());
-        if (asset.getImagePath() != null && !asset.getImagePath().isEmpty())
-            assetImage.setImageURI(Uri.parse(asset.getImagePath()));
-        else
-            assetImage.setImageResource(R.drawable.box_add_asset_icon);
-        assetPhotoUri = asset.getImagePath();
+
+
+        if (assetViewModel.getAssetPhotoUri().getValue() == null) {
+            assetViewModel.setAssetPhotoUri(asset.getImagePath());
+        }
 
 
         buttonScan.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +173,15 @@ public class EditAssetFragment extends Fragment {
             }
         });
 
+        assetViewModel.getAssetPhotoUri().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String uri) {
+                if (uri != null && !uri.isEmpty()) {
+
+                    assetImage.setImageURI(Uri.parse(uri));
+                }
+            }
+        });
 
         return root;
     }
@@ -185,7 +196,7 @@ public class EditAssetFragment extends Fragment {
 
         String employeeName = editTextEmployeeName.getText().toString().trim();
         String location = editTextLocation.getText().toString().trim();
-        String imagePath = assetPhotoUri;
+        String assetPhotoUri = assetViewModel.getAssetPhotoUri().getValue();
 
         boolean isEdited = false;
 
@@ -214,7 +225,7 @@ public class EditAssetFragment extends Fragment {
             isEdited = true;
         }
         if (assetPhotoUri != null && (asset.getImagePath() == null || !asset.getImagePath().equals(assetPhotoUri))) {
-            asset.setImagePath(imagePath);
+            asset.setImagePath(assetPhotoUri);
             isEdited = true;
         }
 

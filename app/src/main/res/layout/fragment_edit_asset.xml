@@ -30,7 +30,7 @@
                     android:id="@+id/imageViewAddAsset"
                     android:layout_width="75pt"
                     android:layout_height="75pt"
-                    android:src="@drawable/assets_icon"
+                    android:src="@drawable/box_add_asset_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

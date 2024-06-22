@@ -9,12 +9,14 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +73,8 @@ public class AddAssetFragment extends Fragment {
 
     AutoCompleteTextView autoCompleteTextViewLocation;
 
-    String assetPhotoUri;
+
+    private AssetViewModel assetViewModel;
 
     private ActivityResultLauncher<Intent> startForProfileImageResult;
 
@@ -93,7 +96,7 @@ public class AddAssetFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
-
+        assetViewModel = new ViewModelProvider(this).get(AssetViewModel.class);
         startForProfileImageResult = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -105,8 +108,7 @@ public class AddAssetFragment extends Fragment {
                         if (resultCode == Activity.RESULT_OK) {
                             if (data != null && data.getData() != null) {
                                 Uri fileUri = data.getData();
-                                assetPhotoUri = fileUri.toString();
-                                assetImage.setImageURI(fileUri);
+                                assetViewModel.setAssetPhotoUri(fileUri.toString());
                             }
                         } else if (resultCode == ImagePicker.RESULT_ERROR) {
                             Toast.makeText(getActivity(), R.string.error_occurred, Toast.LENGTH_SHORT).show();
@@ -162,6 +164,13 @@ public class AddAssetFragment extends Fragment {
             }
         });
 
+        assetViewModel.getAssetPhotoUri().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String uri) {
+                if (uri != null && !uri.isEmpty())
+                    assetImage.setImageURI(Uri.parse(uri));
+            }
+        });
 
         Places.initialize(getContext(), BuildConfig.MAPS_API_KEY);
         placesClient = Places.createClient(getContext());
@@ -209,7 +218,8 @@ public class AddAssetFragment extends Fragment {
         long barcode = Long.parseLong(barcodeString);
         double price = Double.parseDouble(priceString);
 
-        if (assetPhotoUri == null || assetPhotoUri.isEmpty())
+        String assetPhotoUri = getValue();
+        if (assetPhotoUri != null && assetPhotoUri.isEmpty())
             assetPhotoUri = null;
 
         Asset asset = new Asset(0, name, description, barcode, price, LocalDateTime.now(), employeeName, location, assetPhotoUri);
@@ -232,6 +242,11 @@ public class AddAssetFragment extends Fragment {
         });
     }
 
+    @Nullable
+    private String getValue() {
+        return assetViewModel.getAssetPhotoUri().getValue();
+    }
+
     private void clearFields() {
         editTextName.getText().clear();
         editTextDescription.getText().clear();
@@ -239,7 +254,7 @@ public class AddAssetFragment extends Fragment {
         editTextPrice.getText().clear();
         autoCompleteTextViewEmployeeName.getText().clear();
         autoCompleteTextViewLocation.getText().clear();
-        assetPhotoUri = null;
+        assetViewModel.setAssetPhotoUri(null);
         assetImage.setImageResource(R.drawable.box_add_asset_icon);
     }
 
