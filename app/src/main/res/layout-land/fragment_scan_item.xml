@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:layout_marginBottom="?attr/actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.censuslists.ScanItemFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/medium_margin">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:layout_constraintBottom_toTopOf="@id/textViewOr">
+
+            <EditText
+                android:id="@+id/editTextBarcode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/barcode"
+                android:inputType="number" />
+
+
+            <Button
+                android:id="@+id/buttonFind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/find"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewOr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/or"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/medium_margin"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+        <Button
+            android:id="@+id/buttonScan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scan"
+            android:layout_marginTop="@dimen/medium_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewOr" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

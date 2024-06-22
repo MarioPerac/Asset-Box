@@ -1,6 +1,7 @@
 package org.unibl.etf.mr.assetbox.ui.censuslists;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import org.unibl.etf.mr.assetbox.R;
 import org.unibl.etf.mr.assetbox.assetsdb.AssetDatabase;
 import org.unibl.etf.mr.assetbox.assetsdb.dao.CensusListDAO;
+import org.unibl.etf.mr.assetbox.model.AssetInfo;
 import org.unibl.etf.mr.assetbox.model.CensusList;
 import org.unibl.etf.mr.assetbox.model.CensusListsManager;
 import org.unibl.etf.mr.assetbox.model.Item;
@@ -127,6 +129,7 @@ public class CensusListsFragment extends Fragment {
             });
         });
     }
+    
 
     private void filterAssets(String query) {
         filteredLists.clear();
@@ -134,14 +137,24 @@ public class CensusListsFragment extends Fragment {
             filteredLists.addAll(lists);
         } else {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
+            Context context = getContext();
+
+
+            SearchCategories searchCategory = SearchCategories.fromString(currentSearchCategory, context);
+
             for (CensusList censusList : lists) {
-                if (currentSearchCategory.equals(SearchCategories.Name.toString()) && censusList.getName().toLowerCase().contains(query.toLowerCase())) {
-                    filteredLists.add(censusList);
-                } else if (currentSearchCategory.equals(SearchCategories.Date.toString())) {
-                    String formattedDate = censusList.getCreationDate().format(formatter);
-                    if (formattedDate.contains(query)) {
-                        filteredLists.add(censusList);
-                    }
+                switch (searchCategory) {
+                    case Name:
+                        if (censusList.getName().toLowerCase().contains(query.toLowerCase())) {
+                            filteredLists.add(censusList);
+                        }
+                        break;
+                    case Date:
+                        String formattedDate = censusList.getCreationDate().format(formatter);
+                        if (formattedDate.contains(query)) {
+                            filteredLists.add(censusList);
+                        }
+                        break;
                 }
             }
         }

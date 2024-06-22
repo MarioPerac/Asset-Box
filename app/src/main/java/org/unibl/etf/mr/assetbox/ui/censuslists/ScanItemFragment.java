@@ -33,15 +33,20 @@ public class ScanItemFragment extends Fragment {
             result -> {
                 if (result.getContents() != null) {
                     String barcode = result.getContents();
+
                     ExecutorService executorService = Executors.newSingleThreadExecutor();
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
                             Asset asset = AssetDatabase.getInstance(getContext()).getAssetDAO().getByBarcode(Long.parseLong(barcode));
                             getActivity().runOnUiThread(() -> {
-                                Bundle bundle = new Bundle();
-                                bundle.putSerializable("asset", asset);
-                                Navigation.findNavController(root).navigate(R.id.action_scanItemFragment_to_addItemFragment, bundle);
+                                if (asset == null) {
+                                    Toast.makeText(getContext(), R.string.no_asset_found_with_barcode, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("asset", asset);
+                                    Navigation.findNavController(root).navigate(R.id.action_scanItemFragment_to_addItemFragment, bundle);
+                                }
                             });
 
                         }

@@ -28,6 +28,8 @@
     <string name="employee_starting_text">Employee:</string>
     <string name="created_starting_text">Created at:</string>
     <string name="location_starting_text">Location:</string>
+    <string name="old_employee_starting_text">Old Employee:</string>
+    <string name="new_employee_starting_text">New Employee:</string>
     <string name="old_location_starting_text">Old Location:</string>
     <string name="new_location_starting_text">New Location:</string>
     <string name="description_starting_text">Description:</string>
@@ -71,8 +73,13 @@
     <string name="title_add_item">Add Item</string>
     <string name="title_scan_item">Scan Item</string>
     <string name="view_on_map">View on map</string>
+    <string name="category_name">Name</string>
+    <string name="category_date">Date</string>
     <string-array name="search_categories">
         <item>Name</item>
         <item>Date</item>
+    </string-array>
+    <string-array name="search_category_name">
+        <item>Name</item>
     </string-array>
 </resources>

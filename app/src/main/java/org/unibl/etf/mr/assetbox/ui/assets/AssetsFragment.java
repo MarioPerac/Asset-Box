@@ -1,5 +1,6 @@
 package org.unibl.etf.mr.assetbox.ui.assets;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -42,7 +43,7 @@ public class AssetsFragment extends Fragment {
     private AssetInfoRecyclerViewAdapter adapter;
     private Spinner searchCategorySpinner;
     private SearchView searchView;
-    private String currentSearchCategory = SearchCategories.Name.toString();
+    private String currentSearchCategory;
 
     public AssetsFragment() {
     }
@@ -57,6 +58,7 @@ public class AssetsFragment extends Fragment {
 
         assetDAO = AssetDatabase.getInstance(getContext()).getAssetDAO();
         filteredAssetInfoList.addAll(assetInfoList);
+        currentSearchCategory = SearchCategories.Name.toString();
 
     }
 
@@ -132,15 +134,24 @@ public class AssetsFragment extends Fragment {
             filteredAssetInfoList.addAll(assetInfoList);
         } else {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.DATE_TIME_FORMAT);
-            for (AssetInfo assetInfo : assetInfoList) {
-                if (currentSearchCategory.equals(SearchCategories.Name.toString()) && assetInfo.getName().toLowerCase().contains(query.toLowerCase())) {
-                    filteredAssetInfoList.add(assetInfo);
-                } else if (currentSearchCategory.equals(SearchCategories.Date.toString())) {
-                    String formattedDate = assetInfo.getCreationDate().format(formatter);
-                    if (formattedDate.contains(query)) {
-                        filteredAssetInfoList.add(assetInfo);
-                    }
+            Context context = getContext();
 
+
+            SearchCategories searchCategory = SearchCategories.fromString(currentSearchCategory, context);
+
+            for (AssetInfo assetInfo : assetInfoList) {
+                switch (searchCategory) {
+                    case Name:
+                        if (assetInfo.getName().toLowerCase().contains(query.toLowerCase())) {
+                            filteredAssetInfoList.add(assetInfo);
+                        }
+                        break;
+                    case Date:
+                        String formattedDate = assetInfo.getCreationDate().format(formatter);
+                        if (formattedDate.contains(query)) {
+                            filteredAssetInfoList.add(assetInfo);
+                        }
+                        break;
                 }
             }
         }

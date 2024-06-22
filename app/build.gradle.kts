@@ -14,24 +14,36 @@ android {
         applicationId = "org.unibl.etf.mr.assetbox"
         minSdk = 26
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
-
+        versionCode = 100
+        versionName = "1.0.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         val properties = Properties()
         properties.load(FileInputStream(rootProject.file("local.properties")))
 
-        // Set API keys in BuildConfig
         buildConfigField("String", "MAPS_API_KEY", "\"${properties.getProperty("MAPS_API_KEY")}\"")
 
 
     }
 
     buildTypes {
-        release {
+        getByName("release") {
+            // Enables code shrinking, obfuscation, and optimization for only
+            // your project's release build type. Make sure to use a build
+            // variant with `isDebuggable=false`.
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            // Enables resource shrinking, which is performed by the
+            // Android Gradle plugin.
+
+            proguardFiles(
+                    // Includes the default ProGuard rules files that are packaged with
+                    // the Android Gradle plugin. To learn more, go to the section about
+                    // R8 configuration files.
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+
+                    // Includes a local, custom Proguard rules file
+                    "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -71,4 +83,5 @@ dependencies {
     implementation("com.github.dhaval2404:imagepicker:2.1")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
 }
